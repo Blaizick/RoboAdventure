@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
+  m_Name: TestCraftRecipe
+  m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
+  id: TestCraftRecipe
+  components:
+  - rid: 5022903857348870212
+  - rid: 5022903857348870213
+  - rid: 5022903857348870214
+  - rid: 5022903857348870215
+  - rid: 5022903857348870216
+  references:
+    version: 2
+    RefIds:
+    - rid: 5022903857348870212
+      type: {class: CmsInputItemsComp, ns: , asm: Assembly-CSharp}
+      data:
+        inputStacks:
+        - item: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
+          count: 1
+    - rid: 5022903857348870213
+      type: {class: CmsOutputItemsComp, ns: , asm: Assembly-CSharp}
+      data:
+        outputStacks:
+        - item: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
+          count: 1
+    - rid: 5022903857348870214
+      type: {class: CmsCraftingTimeComp, ns: , asm: Assembly-CSharp}
+      data:
+        craftingTime: 1
+    - rid: 5022903857348870215
+      type: {class: CmsSpriteComp, ns: , asm: Assembly-CSharp}
+      data:
+        sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+    - rid: 5022903857348870216
+      type: {class: CmsNameComp, ns: , asm: Assembly-CSharp}
+      data:
+        name: Test
