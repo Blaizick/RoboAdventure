@@ -7,4 +7,5 @@ public class InventorySlotContainerPrefab : MonoBehaviour
     public RectTransform rootTransform;
     public Image itemIcon;
     public TMP_Text itemCountText;
+    public InventoryItemBehaviour itemBehaviour;
 }

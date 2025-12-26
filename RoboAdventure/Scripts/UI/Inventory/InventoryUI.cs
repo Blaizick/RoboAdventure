@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using UnityEditor.Callbacks;
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 using Zenject;
 
 public class InventoryUI : MonoBehaviour
@@ -15,6 +12,8 @@ public class InventoryUI : MonoBehaviour
 
     [NonSerialized] public List<InventorySlotContainerPrefab> inventorySlots = new();
 
+    public RectTransform draggedItemParentTransform; 
+    
     [Inject]
     public void Construct(Inventory inventory)
     {
@@ -36,28 +35,37 @@ public class InventoryUI : MonoBehaviour
             GameObject.Destroy(i.gameObject);
         }
         inventorySlots.Clear();
-        
-        foreach (var i in inventory.stacks)
+
+        for (int i = 0; i < inventory.stacks.Count; i++)
         {
+            var stack = inventory.stacks[i];
+            var itemStackRef = new StorageItemStackReference(inventory, i);
+
             var go = GameObject.Instantiate(inventorySlotContainerPrefab, contentRootTransform);
             var script = go.GetComponent<InventorySlotContainerPrefab>();
-            if (i == null)
+            if (stack == null)
             {
                 script.itemCountText.gameObject.SetActive(false);
             }
             else
             {
-                script.itemIcon.sprite = i.item.Get<CmsInventoryIconComp>().icon;
-                if (i.count > 1)
-                {
-                    script.itemCountText.text = i.count.ToString();                    
-                }
+                script.itemIcon.sprite = stack.item.Get<CmsInventoryIconComp>().icon;
+                if (stack.count > 1)
+                    script.itemCountText.text = stack.count.ToString();                    
                 else
-                {
                     script.itemCountText.gameObject.SetActive(false);
-                }
+                
+                script.itemBehaviour.Construct(draggedItemParentTransform, itemStackRef);
             }
+            
+            script.gameObject.AddComponent<MonoObjectContainer>().Object = itemStackRef;
+            script.itemBehaviour.gameObject.AddComponent<MonoObjectContainer>().Object = itemStackRef;
+            
             inventorySlots.Add(script);
+        }
+        foreach (var i in inventory.stacks)
+        {
+            
         }
     }
     

@@ -23,6 +23,15 @@ public class LimitedItemStack : ItemStack
         maxCount = base.item.Get<CmsMaxItemsInStackComp>().maxItemsInStack;
     }
 
+    public LimitedItemStack(CmsEntity item, int count) : base(item, count)
+    {
+        maxCount = base.item.Get<CmsMaxItemsInStackComp>().maxItemsInStack;
+    }
+
+    public LimitedItemStack(ItemStack itemStack) : base(itemStack)
+    {
+        maxCount = base.item.Get<CmsMaxItemsInStackComp>().maxItemsInStack;
+    }
 
     public int GetSpace()
     {
@@ -71,6 +80,12 @@ public class ItemStack
     {
         this.item = item;
         this.count = count;
+    }
+
+    public ItemStack(ItemStack other)
+    {
+        this.item = other.item;
+        this.count = other.count;
     }
 }
 
