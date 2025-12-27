@@ -1,30 +1,28 @@
 ﻿using System;
-using TreeEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public RectTransform rectTransform;
 
-    [NonSerialized] public RectTransform draggingParentRectTransform;
+    [NonSerialized, Inject(Id = InjectIds.DragLayer)] public RectTransform dragLayer;
 
     private RectTransform m_OverrideParent;
     private CanvasGroup m_CanvasGroup;
 
     private Vector2 m_OverridePosition;
-    
     private Vector2 m_PointerOffset;
 
     public StorageItemStackReference storageItemStackReference;
-    
-    public void Construct(RectTransform draggingParentRectTransform, StorageItemStackReference storageItemStackReference)
+
+    public void Construct(StorageItemStackReference storageItemStackReference)
     {
-        this.draggingParentRectTransform = draggingParentRectTransform;
-        this.storageItemStackReference = storageItemStackReference; 
+        this.storageItemStackReference = storageItemStackReference;
     }
     
-    void Awake()
+    private void Awake()
     {
         m_OverridePosition = rectTransform.anchoredPosition;
         m_CanvasGroup = GetComponent<CanvasGroup>();
@@ -34,7 +32,12 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        m_OverrideParent = rectTransform.parent as RectTransform;
+        if (storageItemStackReference == null)
+        {
+            return;
+        }
+        
+        m_OverrideParent = (RectTransform)rectTransform.parent;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             rectTransform,
@@ -42,15 +45,20 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
             eventData.pressEventCamera,
             out m_PointerOffset);
 
-        rectTransform.SetParent(draggingParentRectTransform, true);
-
+        rectTransform.SetParent(dragLayer, true);
+        
         m_CanvasGroup.blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (storageItemStackReference == null)
+        {
+            return;
+        }
+
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-                draggingParentRectTransform,
+                dragLayer,
                 eventData.position,
                 eventData.pressEventCamera,
                 out Vector2 localPoint))
@@ -61,6 +69,11 @@ public class InventoryItemBehaviour : MonoBehaviour, IBeginDragHandler, IDragHan
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (storageItemStackReference == null)
+        {
+            return;
+        }
+        
         var go = eventData.pointerCurrentRaycast.gameObject;
         if (go != null && go.TryGetComponent<MonoObjectContainer>(out var container))
         {

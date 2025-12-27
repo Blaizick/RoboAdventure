@@ -24,9 +24,9 @@ namespace Zenject.Tests.Bindings
 
         class CustomFooFactory : IFactory<string, Foo>
         {
-            public Foo Create(string value)
+            public Foo Create(string stackRef)
             {
-                return new Foo(value);
+                return new Foo(stackRef);
             }
         }
 

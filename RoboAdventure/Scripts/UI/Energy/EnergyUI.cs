@@ -1,37 +1,56 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 public class EnergyUI : MonoBehaviour
 {
-    public EnergySystem energySystem;
+    [Inject] public EnergySystem energySystem;
 
     public Image energyFiller;
     public Button absorbButton;
-    public InventorySlotContainerPrefab absorbSlot;
-        
-    [Inject]
-    public void Construct(EnergySystem energySystem)
-    {
-        this.energySystem = energySystem;
-    }
+
+    public RectTransform absorbSlotParentTransform;
+    
+    [Inject] public IFactory<StorageItemStackReference, RectTransform, InventorySlotContainerPrefab> factory;
+
+    [NonSerialized] public GameObject absorbSlotInstance;
     
     public void Init()
     {
         absorbButton.onClick.AddListener(() => energySystem.Absorb());
+
+        energySystem.absorbStorage.onChange += Rebuild;
+        Rebuild();
+    }
+
+    public void Rebuild()
+    {
+        if (absorbSlotInstance != null)
+        {
+            GameObject.Destroy(absorbSlotInstance);
+        }
+        
+        var itemStackRef = new StorageItemStackReference(energySystem.absorbStorage, AbsorbStorage.AbsorbStackId);
+        
+        var script = factory.Create(itemStackRef, absorbSlotParentTransform);
+        
+        var absorbStack = energySystem.absorbStorage.AbsorbStack;
+        
+        script.itemIcon.gameObject.SetActive(absorbStack != null);
+        script.itemCountText.gameObject.SetActive(absorbStack != null);
+        if (energySystem.absorbStorage.AbsorbStack != null)
+        {
+            script.itemIcon.sprite = absorbStack.item.Get<CmsInventoryIconComp>().icon;
+            script.itemCountText.gameObject.SetActive(absorbStack.count > 1);
+            script.itemCountText.text = absorbStack.count.ToString();
+        }
+        
+        absorbSlotInstance = script.gameObject;
     }
 
     public void _Update()
     {
         energyFiller.fillAmount = energySystem.energy / energySystem.maxEnergy;
-        
-        absorbSlot.itemIcon.gameObject.SetActive(energySystem.absorbStack != null);
-        absorbSlot.itemCountText.gameObject.SetActive(energySystem.absorbStack != null);
-        if (energySystem.absorbStack != null)
-        {
-            absorbSlot.itemIcon.sprite = energySystem.absorbStack.item.Get<CmsInventoryIconComp>().icon;
-            absorbSlot.itemCountText.gameObject.SetActive(energySystem.absorbStack.count > 1);
-            absorbSlot.itemCountText.text = energySystem.absorbStack.count.ToString();
-        }
     }
 }

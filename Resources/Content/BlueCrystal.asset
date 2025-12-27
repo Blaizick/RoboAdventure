@@ -17,6 +17,7 @@ MonoBehaviour:
   - rid: 5022903834250576114
   - rid: 5022903834250576115
   - rid: 5022903901440180292
+  - rid: 5022903992479907908
   references:
     version: 2
     RefIds:
@@ -32,3 +33,7 @@ MonoBehaviour:
       type: {class: CmsMaxItemsInStackComp, ns: , asm: Assembly-CSharp}
       data:
         maxItemsInStack: 3
+    - rid: 5022903992479907908
+      type: {class: CmsEnergyIntensityComp, ns: , asm: Assembly-CSharp}
+      data:
+        energyIntensity: 5

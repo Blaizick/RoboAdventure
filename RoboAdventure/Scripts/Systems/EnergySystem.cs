@@ -7,7 +7,12 @@ public class EnergySystem
 
     public const float EnergyConsume = 0.1f;
 
-    public ItemStack absorbStack;
+    public AbsorbStorage absorbStorage;
+
+    public EnergySystem(AbsorbStorage absorbStorage)
+    {
+        this.absorbStorage = absorbStorage;
+    }
     
     public void Init()
     {
@@ -21,12 +26,36 @@ public class EnergySystem
 
     public void Absorb()
     {
-        if (absorbStack != null)
+        if (absorbStorage.HasAbsorbStack())
+        {
             AbsorbUnchecked();
+        }
     }
     public void AbsorbUnchecked()
     {
-        float income = absorbStack.item.Get<CmsEnergyIntensityComp>().energyIntensity * absorbStack.count;
+        var stack = absorbStorage.Absorb();
+        float income = stack.item.Get<CmsEnergyIntensityComp>().energyIntensity * stack.count;
         energy = Mathf.Min(maxEnergy, energy + income);
+    }
+}
+
+public class AbsorbStorage : Storage
+{
+    public const int AbsorbStackId = 0;
+    public LimitedItemStack AbsorbStack => stacks[AbsorbStackId];
+    
+    public AbsorbStorage() : base(1) { }
+
+    public bool HasAbsorbStack()
+    {
+        return stacks[0] != null;
+    }
+    public ItemStack Absorb()
+    {
+        var stack = stacks[0];
+        stacks[0] = null;
+        itemsDic.Clear();
+        onChange();
+        return stack;
     }
 }

@@ -1,6 +1,11 @@
 using UnityEngine;
 using Zenject;
 
+public static class InjectIds
+{
+    public const string DragLayer = "DragLayer";
+}
+
 public class InstallerMain : MonoInstaller
 {
     public Player player;
@@ -10,8 +15,16 @@ public class InstallerMain : MonoInstaller
     public EnergyUI energyUI;
     public PlayerUI playerUI;
     
+    public InventorySlotContainerPrefab inventorySlotPrefab;
+    public RectTransform dragLayer;
+    
     public override void InstallBindings()
     {
+        Container.Bind<InventorySlotContainerPrefab>().FromInstance(inventorySlotPrefab).AsSingle();
+        Container.Bind<RectTransform>().WithId(InjectIds.DragLayer).FromInstance(dragLayer).AsSingle();
+        Container.BindIFactory<StorageItemStackReference, RectTransform, InventorySlotContainerPrefab>().FromFactory<StorageSlotUIFactory>();
+        
+        Container.Bind<AbsorbStorage>().AsSingle();
         Container.Bind<Inventory>().AsSingle();
         Container.Bind<CraftSystem>().AsSingle();
         Container.Bind<EnergySystem>().AsSingle();

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
+using Zenject;
 
 public class Storage
 {
@@ -33,48 +33,49 @@ public class Storage
     {
         itemsDic[stacks[index].item].count -= stacks[index].count;
         stacks[index] = null;
-        onChange();
+        onChange?.Invoke();
     }
     public void AddAt(ItemStack stack, int index)
     {
-        itemsDic[stack.item].count += stack.count;
+        AddToItemsDic(stack);
         if (stacks[index] == null)
             stacks[index] = new LimitedItemStack(stack);
         else
             stacks[index].Add(stack.count);
-        onChange();
+        onChange?.Invoke();
+    }
+
+    private void AddToItemsDic(ItemStack stack)
+    {
+        if (!itemsDic.TryGetValue(stack.item, out var _stack))
+        {
+            _stack = new(stack.item, 0);
+            itemsDic[stack.item] = _stack;
+        }
+        _stack.count += stack.count;
     }
     
     public void Add(ItemStack stack)
     {
+        AddToItemsDic(stack);
+        int toAdd = stack.count;
+        for (int i = 0; i < stacks.Count && toAdd > 0; i++)
         {
-            if (!itemsDic.TryGetValue(stack.item, out ItemStack _stack))
+            if (stacks[i] != null && stacks[i].item == stack.item)
             {
-                _stack = new ItemStack(stack.item, 0);
-                itemsDic[_stack.item] = _stack;
-            }
-            _stack.count += stack.count;
-        }
-        {
-            int toAdd = stack.count;
-            for (int i = 0; i < stacks.Count && toAdd > 0; i++)
-            {
-                if (stacks[i] != null && stacks[i].item == stack.item)
-                {
-                    toAdd -= stacks[i].Add(toAdd);
-                }
-            }
-            for (int i = 0; i < stacks.Count && toAdd > 0 && freeSlots > 0; i++)
-            {
-                if (stacks[i] == null)
-                {
-                    freeSlots--;
-                    stacks[i] = new LimitedItemStack(stack.item);
-                    toAdd -= stacks[i].Add(toAdd);
-                }            
+                toAdd -= stacks[i].Add(toAdd);
             }
         }
-        onChange();
+        for (int i = 0; i < stacks.Count && toAdd > 0 && freeSlots > 0; i++)
+        {
+            if (stacks[i] == null)
+            {
+                freeSlots--;
+                stacks[i] = new LimitedItemStack(stack.item);
+                toAdd -= stacks[i].Add(toAdd);
+            }            
+        }
+        onChange?.Invoke();
     }
     public void Remove(ItemStack stack)
     {
@@ -93,7 +94,7 @@ public class Storage
                 }
             }
         }
-        onChange();
+        onChange?.Invoke();
     }
 
     public bool Has(ItemStack stack)
