@@ -25,11 +25,12 @@ public class PlayerUI : MonoBehaviour
 
     public void _Update()
     {
-        if (player.collectionCollectable)
+        var playerUnit = player.unit;
+        if (playerUnit.collectionCollectable)
         {
             collectionCircleRoot.SetActive(true);
-            collectionCircleImg.fillAmount = player.curCollectionTime / player.maxCollectionTime;
-            collectionCircleRootTransform.anchoredPosition = Camera.main.WorldToScreenPoint(player.collectionCollectable.transform.position);
+            collectionCircleImg.fillAmount = playerUnit.curCollectionTime / playerUnit.maxCollectionTime;
+            collectionCircleRootTransform.anchoredPosition = Camera.main.WorldToScreenPoint(playerUnit.collectionCollectable.transform.position);
         }
         else
         {

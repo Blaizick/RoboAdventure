@@ -20,7 +20,7 @@ public class StorageSlotUIFactory : IFactory<StorageItemStackReference, RectTran
         var item = container.InstantiatePrefabForComponent<InventorySlotContainerPrefab>(prefab, parent);
         item.itemBehaviour.Construct(stackRef);
         item.gameObject.AddComponent<MonoObjectContainer>().Object = stackRef;
-        item.itemIcon.gameObject.AddComponent<MonoObjectContainer>().Object = item;
+        item.itemIcon.gameObject.AddComponent<MonoObjectContainer>().Object = stackRef;
         return item;
     }
 }

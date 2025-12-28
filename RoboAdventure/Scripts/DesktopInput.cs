@@ -22,15 +22,17 @@ public class DesktopInput
     public void _Update()
     {
         Vector2 move = actions.Player.Move.ReadValue<Vector2>();
-        player.Move(move);
+        
+        var playerUnit = player.unit;
+        playerUnit.Move(move);
 
         if (actions.Player.Collect.IsPressed())
         {
-            player.ProgressCollection(true);
+            playerUnit.ProgressCollection(true);
         }
         else
         {
-            player.ProgressCollection(false);
+            playerUnit.ProgressCollection(false);
         }
     }
 }

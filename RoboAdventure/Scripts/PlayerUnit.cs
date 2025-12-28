@@ -2,48 +2,78 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class Player : MonoBehaviour
+public class Player
 {
+    [Inject] public PlayerUnit unit;
+    [Inject] public EnergySystem energySystem;    
+    
+    public void Init()
+    {
+        energySystem.Init();
+        unit.Init();
+    }
+
+    public void _Update()
+    {
+        energySystem._Update();
+        unit._Update();
+    }
+}
+
+public class CameraBehaviour
+{
+    public Player player;
+    public Camera camera;
+    
+    public CameraBehaviour(Player player, Camera camera)
+    {
+        this.player = player;
+        this.camera = camera;
+    }
+    
+    public void _Update()
+    {
+        var playerUnit = player.unit;
+        camera.transform.position = new Vector3(playerUnit.transform.position.x, playerUnit.transform.position.y, -10f);
+    }
+}
+
+public class PlayerUnit : MonoBehaviour
+{
+    public Rigidbody2D rb;
+
     [NonSerialized] public CmsEntity cmsEntity;
     
-    public Rigidbody2D rb;
-    [NonSerialized] public LocationCollectables locationCollectables;
-    [NonSerialized] public Inventory inventory;
-
+    [NonSerialized, Inject] public LocationCollectables locationCollectables;
+    [NonSerialized, Inject] public Inventory inventory;
+    
     [NonSerialized] public Collectable collectionCollectable;
     [NonSerialized] public float curCollectionTime;    
     [NonSerialized] public float maxCollectionTime;
     
-    [Inject]
-    public void Construct(LocationCollectables locationCollectables, Inventory inventory)
-    {
-        this.locationCollectables = locationCollectables;
-        this.inventory = inventory;
-    }
+    [Inject] public PressureSystem pressureSystem;
+    [Inject] public HealthSystem healthSystem;
+
     
     public void Init()
     {
+        healthSystem.Init();
+        pressureSystem.Init();
         cmsEntity = Content.player;
     }
 
     public void _Update()
     {
-        // var col = locationCollectables.GetCollectableWithin(transform.position, cmsEntity.Get<CmsCollectionRangeComp>().collectionRange);
-        
+        healthSystem._Update();
+        pressureSystem.SetDepthFromY(transform.position.y);
+        pressureSystem._Update();
     }
-
+    
     public void Move(Vector2 input)
     {
         rb.linearVelocity = input * cmsEntity.Get<CmsMoveSpeedComp>().moveSpeed;
-
-        // if (input.sqrMagnitude > 0.01f)
-        // {
-        //     float deg = Mathf.Atan2(input.y, input.x) * Mathf.Rad2Deg;
-        //     Quaternion targetRot = Quaternion.Euler(0f, 0f, deg + rotationOffset);
-        //     transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);    
-        // }
     }
-
+    
     public void ProgressCollection(bool collection)
     {
         if (!collection)
@@ -77,8 +107,8 @@ public class Player : MonoBehaviour
         }
         
         ResetAndReturn:
-            collectionCollectable = null;
-            curCollectionTime = 0.0f;
+        collectionCollectable = null;
+        curCollectionTime = 0.0f;
     }
 
     public void Collect(Collectable collectable)
@@ -87,22 +117,5 @@ public class Player : MonoBehaviour
         locationCollectables.RemoveCollectable(collectable);
                     
         inventory.Add(collectable.cmsEntity);
-    }
-}
-
-public class CameraBehaviour
-{
-    public Player player;
-    public Camera camera;
-    
-    public CameraBehaviour(Player player, Camera camera)
-    {
-        this.player = player;
-        this.camera = camera;
-    }
-    
-    public void _Update()
-    {
-        camera.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, -10f);
     }
 }

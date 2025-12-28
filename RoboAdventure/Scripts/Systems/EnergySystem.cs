@@ -5,7 +5,7 @@ public class EnergySystem
     public float maxEnergy = 100.0f;
     public float energy = 100.0f;
 
-    public const float EnergyConsume = 0.1f;
+    public const float EnergyConsume = 0.5f;
 
     public AbsorbStorage absorbStorage;
 
