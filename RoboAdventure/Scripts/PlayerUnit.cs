@@ -54,6 +54,7 @@ public class PlayerUnit : MonoBehaviour
     [Inject] public PressureSystem pressureSystem;
     [Inject] public HealthSystem healthSystem;
 
+    public Material waterMaterial;
     
     public void Init()
     {
@@ -67,6 +68,8 @@ public class PlayerUnit : MonoBehaviour
         healthSystem._Update();
         pressureSystem.SetDepthFromY(transform.position.y);
         pressureSystem._Update();
+        
+        waterMaterial.SetVector("_playerPosition", transform.position);
     }
     
     public void Move(Vector2 input)

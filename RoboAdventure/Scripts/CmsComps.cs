@@ -68,3 +68,9 @@ public class CmsEnergyIntensityComp : CmsComponent
 {
     public float energyIntensity;
 }
+
+[Serializable]
+public class CmsMaterialComp : CmsComponent
+{
+    public Material material;
+}
