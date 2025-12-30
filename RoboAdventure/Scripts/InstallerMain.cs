@@ -15,6 +15,11 @@ public class InstallerMain : MonoInstaller
     public EnergyUI energyUI;
     public PlayerUI playerUI;
     public HUDUI hudUI;
+    public HotbarUI hotbarUI;
+    public UI ui;
+
+    public BladeWeapon bladeWeapon;
+    public Weapons weapons;
     
     public InventorySlotContainerPrefab inventorySlotPrefab;
     public RectTransform dragLayer;
@@ -35,13 +40,18 @@ public class InstallerMain : MonoInstaller
         Container.Bind<Inventory>().AsSingle();
         Container.Bind<CraftSystem>().AsSingle();
         Container.Bind<EnergySystem>().AsSingle();
+        Container.Bind<Hotbar>().AsSingle();
         
         Container.Bind<HUDUI>().FromInstance(hudUI).AsSingle();
         Container.Bind<CraftUI>().FromInstance(craftUI).AsSingle();
         Container.Bind<InventoryUI>().FromInstance(inventoryUI).AsSingle();
         Container.Bind<PlayerUI>().FromInstance(playerUI).AsSingle();
         Container.Bind<EnergyUI>().FromInstance(energyUI).AsSingle();
-        Container.Bind<UI>().AsSingle();
+        Container.Bind<HotbarUI>().FromInstance(hotbarUI).AsSingle();
+        Container.Bind<UI>().FromInstance(ui).AsSingle();
+        
+        Container.Bind<BladeWeapon>().FromInstance(bladeWeapon).AsSingle();
+        Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
         
         Container.Bind<DesktopInput>().AsSingle();
         

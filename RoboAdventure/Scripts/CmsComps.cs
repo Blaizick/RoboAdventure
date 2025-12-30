@@ -74,3 +74,21 @@ public class CmsMaterialComp : CmsComponent
 {
     public Material material;
 }
+
+[Serializable]
+public class CmsHealthComp : CmsComponent
+{
+    public float health;
+}
+
+[Serializable]
+public class CmsReloadTimeComp : CmsComponent
+{
+    public float reloadTime;
+}
+
+[Serializable]
+public class CmsAttackTimeComp : CmsComponent
+{
+    public float attackTime;
+}

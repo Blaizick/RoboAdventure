@@ -1,22 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using Zenject;
 
-public class UI
+public class UI : MonoBehaviour
 {
-    public InventoryUI inventoryUI;
-    public PlayerUI playerUI;
-    public CraftUI craftUI;
-    public EnergyUI energyUI;
-    public HUDUI hudUI;
-    
-    public UI(CraftUI craftUI, InventoryUI inventoryUI, PlayerUI playerUI, EnergyUI energyUI, HUDUI hudUI)
-    {
-        this.craftUI = craftUI;
-        this.inventoryUI = inventoryUI;
-        this.playerUI = playerUI;
-        this.energyUI = energyUI;
-        this.hudUI = hudUI;
-    }
+    [Inject, NonSerialized] public InventoryUI inventoryUI;
+    [Inject, NonSerialized] public PlayerUI playerUI;
+    [Inject, NonSerialized] public CraftUI craftUI;
+    [Inject, NonSerialized] public EnergyUI energyUI;
+    [Inject, NonSerialized] public HUDUI hudUI;
+    [Inject, NonSerialized] public HotbarUI hotbarUI;
+
+    public GameObject inventoryRoot;
     
     public void Init()
     {
@@ -25,6 +20,7 @@ public class UI
         playerUI.Init();
         energyUI.Init();
         hudUI.Init();
+        hotbarUI.Init();
     }
 
     public void _Update()
@@ -34,5 +30,10 @@ public class UI
         playerUI._Update();
         energyUI._Update();
         hudUI._Update();
+    }
+
+    public void SwitchInventoryVisibility()
+    {
+        inventoryRoot.SetActive(!inventoryRoot.activeInHierarchy);
     }
 }

@@ -13,7 +13,8 @@ public static class Content
 
         player = Cms.Get("Player");
         blueCrystal = Cms.Get("BlueCrystal");
-    
+        
+        WeaponsContent.Init();
         CraftRecipes.Init();
     }
 }
@@ -31,6 +32,23 @@ public static class CraftRecipes
         all = new()
         {
             test
+        };
+    }
+}
+
+public static class WeaponsContent
+{
+    public static CmsEntity blade;
+    
+    public static List<CmsEntity> all;
+
+    public static void Init()
+    {
+        blade = Cms.Get("BladeWeapon");
+
+        all = new()
+        {
+            blade
         };
     }
 }

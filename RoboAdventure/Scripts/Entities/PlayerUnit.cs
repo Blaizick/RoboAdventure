@@ -2,15 +2,17 @@ using System;
 using UnityEngine;
 using Zenject;
 
-public class Player
+public class Player 
 {
     [Inject] public PlayerUnit unit;
     [Inject] public EnergySystem energySystem;    
+    [Inject] public Weapons Weapons;
     
     public void Init()
     {
         energySystem.Init();
         unit.Init();
+        Weapons.Init();
     }
 
     public void _Update()
@@ -38,12 +40,8 @@ public class CameraBehaviour
     }
 }
 
-public class PlayerUnit : MonoBehaviour
+public class PlayerUnit : Unit
 {
-    public Rigidbody2D rb;
-
-    [NonSerialized] public CmsEntity cmsEntity;
-    
     [NonSerialized, Inject] public LocationCollectables locationCollectables;
     [NonSerialized, Inject] public Inventory inventory;
     
@@ -52,11 +50,16 @@ public class PlayerUnit : MonoBehaviour
     [NonSerialized] public float maxCollectionTime;
     
     [Inject] public PressureSystem pressureSystem;
-    [Inject] public HealthSystem healthSystem;
 
     public Material waterMaterial;
+
+    [Inject]
+    public void Construct(HealthSystem healthSystem)
+    {
+        this.healthSystem = healthSystem;
+    }
     
-    public void Init()
+    public override void Init()
     {
         healthSystem.Init();
         pressureSystem.Init();
@@ -106,7 +109,6 @@ public class PlayerUnit : MonoBehaviour
         else
         {
             Collect(col);
-            goto ResetAndReturn;
         }
         
         ResetAndReturn:

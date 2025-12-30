@@ -3,12 +3,19 @@
 public class HealthSystem
 {
     private float m_Health;
-    private float m_MaxHealth = 100.0f;
+    private float m_MaxHealth;
 
     public float Health => m_Health;
     public float MaxHealth => m_MaxHealth;
 
     public UnityEvent onDie;
+
+    public HealthSystem() {}
+    public HealthSystem(float maxHealth)
+    {
+        m_MaxHealth = maxHealth;
+        m_Health = maxHealth;
+    }
     
     public void Init()
     {

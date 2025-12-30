@@ -82,6 +82,6 @@ Material:
     - _baseColor: {r: 0.13389996, g: 0.23852961, b: 0.5566038, a: 0.45490196}
     - _fogNoiseSpeed: {r: 0.25, g: 0, b: 0, a: 0}
     - _fogSpeed: {r: 0.25, g: 0.25, b: 0, a: 0}
-    - _playerPosition: {r: 10.894543, g: -0.20131907, b: 0, a: 0}
+    - _playerPosition: {r: 24.4908, g: 8.345723, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
