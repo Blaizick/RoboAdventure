@@ -13,7 +13,6 @@ public class BladeWeapon : MonoBehaviour
     [NonSerialized] public float reloadTime;
     
     [NonSerialized] public CmsEntity cmsEntity;
-    [NonSerialized] public GameObject target;
 
     public Transform rotateRoot;
 
@@ -21,6 +20,8 @@ public class BladeWeapon : MonoBehaviour
     public Quaternion endRotation;
     
     public GameObject spriteRoot;
+
+    [NonSerialized] public float attackDamage;
     
     public void Init()
     {
@@ -28,6 +29,7 @@ public class BladeWeapon : MonoBehaviour
         
         reloadTime = cmsEntity.Get<CmsReloadTimeComp>().reloadTime;
         attackTime = cmsEntity.Get<CmsAttackTimeComp>().attackTime;
+        attackDamage = cmsEntity.Get<CmsDamageComp>().damage;
     }
 
     public void Update()
@@ -65,5 +67,21 @@ public class BladeWeapon : MonoBehaviour
     {
         curAttackTime = 0.0f;
         attacking = true;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (!attacking)
+        {
+            return;
+        }
+        
+        if (LayerMaskUtility.Contains(LayerMasks.enemyMask, other.gameObject.layer))
+        {
+            if (other.TryGetComponent<Unit>(out var unit))
+            {
+                unit.healthSystem.TakeDamage(attackDamage);
+            }
+        }
     }
 }

@@ -2,7 +2,6 @@
 
 public static class Content
 {
-    public static CmsEntity player;
     public static CmsEntity blueCrystal;
     
     public static void Init()
@@ -11,11 +10,11 @@ public static class Content
         Cms.root = "Content";
         Cms.Load();
 
-        player = Cms.Get("Player");
         blueCrystal = Cms.Get("BlueCrystal");
         
         WeaponsContent.Init();
         CraftRecipes.Init();
+        Units.Init();
     }
 }
 
@@ -49,6 +48,26 @@ public static class WeaponsContent
         all = new()
         {
             blade
+        };
+    }
+}
+
+public static class Units
+{
+    public static CmsEntity enemy;
+    public static CmsEntity player;
+    
+    public static List<CmsEntity> all;
+
+    public static void Init()
+    {
+        enemy = Cms.Get("TestEnemy");
+        player = Cms.Get("Player");
+
+        all = new()
+        {
+            enemy,
+            player
         };
     }
 }

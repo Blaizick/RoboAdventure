@@ -1,25 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
+using ModestTree;
 using UnityEngine;
 using Zenject;
 
 public class Hotbar : Storage
 {
+    public int activeSlot;
+    private float m_Scrolled = 0;
+    
     public Hotbar() : base(5)
     {
         
+    }
+
+    public void ChangeActiveSlot(int count)
+    {
+        activeSlot += count;
+        
+        if (activeSlot < 0)
+            activeSlot += size;
+        if (activeSlot >= size)
+            activeSlot -= size;
+    }
+
+    public void Change(float val)
+    {
+        m_Scrolled += val;
+        int change = (int)m_Scrolled;
+        if (change != 0)
+        {
+            ChangeActiveSlot(change);
+            m_Scrolled -= change;
+        }
+    }
+}
+
+public class HotbarSlotUIFactory : IFactory<StorageItemStackReference, RectTransform, HotbarSlotContainerPrefab>
+{
+    public DiContainer container;
+    public HotbarSlotContainerPrefab prefab;
+    
+    public HotbarSlotUIFactory(DiContainer container, HotbarSlotContainerPrefab prefab)
+    {
+        this.container = container;
+        this.prefab = prefab;
+    }
+    
+    public HotbarSlotContainerPrefab Create(StorageItemStackReference stackRef, RectTransform parent)
+    {
+        var item = container.InstantiatePrefabForComponent<HotbarSlotContainerPrefab>(prefab, parent);
+        item.itemBehaviour.Construct(stackRef);
+        item.gameObject.AddComponent<MonoObjectContainer>().Object = stackRef;
+        item.itemIcon.gameObject.AddComponent<MonoObjectContainer>().Object = stackRef;
+        return item;
     }
 }
 
 public class HotbarUI : MonoBehaviour
 {
-    [NonSerialized, Inject] public IFactory<StorageItemStackReference, RectTransform, InventorySlotContainerPrefab> storageSlotUIFactory;
+    [NonSerialized, Inject] public IFactory<StorageItemStackReference, RectTransform, HotbarSlotContainerPrefab> storageSlotUIFactory;
     
     public RectTransform contentRootTransform;
 
     [NonSerialized, Inject] public Hotbar hotbar;
 
-    [NonSerialized] public List<InventorySlotContainerPrefab> slots = new();
+    [NonSerialized] public List<HotbarSlotContainerPrefab> slots = new();
 
     public void Init()
     {
@@ -27,6 +73,14 @@ public class HotbarUI : MonoBehaviour
 
         slots.Clear();
         Rebuild();
+    }
+
+    public void _Update()
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].slotActivityIndicator.SetActive(hotbar.activeSlot == i);
+        }
     }
 
     public void Rebuild()

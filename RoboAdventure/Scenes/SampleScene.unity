@@ -683,7 +683,7 @@ GameObject:
   - component: {fileID: 130205530}
   - component: {fileID: 130205529}
   - component: {fileID: 130205532}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,6 +745,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   rb: {fileID: 130205529}
+  spriteRenderer: {fileID: 130205531}
 --- !u!212 &130205531
 SpriteRenderer:
   serializedVersion: 2
@@ -1003,6 +1004,8 @@ MonoBehaviour:
   ui: {fileID: 2032935737}
   bladeWeapon: {fileID: 825684227}
   weapons: {fileID: 1275469826}
+  layerMasksBehaviour: {fileID: 549216768}
+  hotbarSlotPrefab: {fileID: 8565542258810405147, guid: 6998707c5a819cd44894b8a99edc382c, type: 3}
   inventorySlotPrefab: {fileID: 2231473938503063547, guid: 1f0cc1124c25e8242a41ed15593737b6, type: 3}
   dragLayer: {fileID: 2032935736}
 --- !u!1 &178083845
@@ -1593,7 +1596,7 @@ GameObject:
   - component: {fileID: 323519744}
   - component: {fileID: 323519743}
   - component: {fileID: 323519746}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1784,6 +1787,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ImpsMain
   ui: {fileID: 0}
   locationCollectables: {fileID: 0}
+  layerMasks: {fileID: 0}
+  enemies:
+  - {fileID: 130205530}
 --- !u!4 &360440022
 Transform:
   m_ObjectHideFlags: 0
@@ -2653,6 +2659,56 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 540918174}
   m_CullTransparentMesh: 1
+--- !u!1 &549216767
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 549216769}
+  - component: {fileID: 549216768}
+  m_Layer: 0
+  m_Name: LayerMasks
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &549216768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549216767}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e42bb5e76fcd46cdb549abce643f8d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LayerMasksBehaviour
+  playerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  enemyMask:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!4 &549216769
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549216767}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 22.57524, y: -4.61442, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &553637970
 GameObject:
   m_ObjectHideFlags: 0
@@ -3469,7 +3525,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 679916962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade Weapon Rotate Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4231,7 +4287,7 @@ GameObject:
   - component: {fileID: 825684224}
   - component: {fileID: 825684226}
   - component: {fileID: 825684227}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Blade Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5706,7 +5762,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1171648460}
   - component: {fileID: 1171648461}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sprite Root
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6150,7 +6206,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1275469827}
   - component: {fileID: 1275469826}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Weapons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16562,5 +16618,6 @@ SceneRoots:
   - {fileID: 1522741680}
   - {fileID: 175416835}
   - {fileID: 360440022}
+  - {fileID: 549216769}
   - {fileID: 1068248817}
   - {fileID: 2032935736}

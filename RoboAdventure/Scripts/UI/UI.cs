@@ -30,6 +30,7 @@ public class UI : MonoBehaviour
         playerUI._Update();
         energyUI._Update();
         hudUI._Update();
+        hotbarUI._Update();
     }
 
     public void SwitchInventoryVisibility()

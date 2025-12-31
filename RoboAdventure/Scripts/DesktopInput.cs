@@ -8,13 +8,15 @@ public class DesktopInput
     public InputSystem_Actions actions;
     public Player player;
     public UI ui;
-    public Weapons Weapons;
+    public Weapons weapons;
+    public Hotbar hotbar;
     
-    public DesktopInput(Player player, UI ui, Weapons weapons)
+    public DesktopInput(Player player, UI ui, Weapons weapons, Hotbar hotbar)
     {
         this.player = player;
         this.ui = ui;
-        this.Weapons = weapons;
+        this.weapons = weapons;
+        this.hotbar = hotbar;
     }
     
     public void Init()
@@ -40,10 +42,13 @@ public class DesktopInput
 
         if (actions.Player.Attack.IsPressed())
         {
-            if (Weapons.curWeapon != null)
+            if (weapons.curWeapon != null)
             {
-                Weapons.curWeapon.Attack();
+                weapons.curWeapon.Attack();
             }
         }
+        
+        var scrollVal = actions.Player.Scroll.ReadValue<float>();
+        hotbar.Change(scrollVal);
     }
 }

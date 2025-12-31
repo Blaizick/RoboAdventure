@@ -13,6 +13,7 @@ public class Unit : MonoBehaviour
     {
         healthSystem = new(cmsEntity.Get<CmsHealthComp>().health);
         healthSystem.Init();
+        healthSystem.onDie.AddListener(() => Destroy(gameObject));
     }
     public virtual void Update() {}
     public virtual void Destroy() {}

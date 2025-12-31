@@ -8,10 +8,17 @@ public class HealthSystem
     public float Health => m_Health;
     public float MaxHealth => m_MaxHealth;
 
-    public UnityEvent onDie;
-
+    public UnityEvent onDie = new();
+    public UnityEvent onDamaged = new();
+    
     public HealthSystem() {}
     public HealthSystem(float maxHealth)
+    {
+        m_MaxHealth = maxHealth;
+        m_Health = maxHealth;
+    }
+
+    public void Construct(float maxHealth)
     {
         m_MaxHealth = maxHealth;
         m_Health = maxHealth;
@@ -34,6 +41,10 @@ public class HealthSystem
         {
             m_Health = 0;
             onDie?.Invoke();
+        }
+        else
+        {
+            onDamaged?.Invoke();
         }
     }
 

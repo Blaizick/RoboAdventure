@@ -4,6 +4,7 @@ using Zenject;
 public static class InjectIds
 {
     public const string DragLayer = "DragLayer";
+    public const string HotbarSlotFactory = "HotbarSlotFactory";
 }
 
 public class InstallerMain : MonoInstaller
@@ -20,20 +21,26 @@ public class InstallerMain : MonoInstaller
 
     public BladeWeapon bladeWeapon;
     public Weapons weapons;
+    public LayerMasksBehaviour layerMasksBehaviour;
     
+    public HotbarSlotContainerPrefab hotbarSlotPrefab;
     public InventorySlotContainerPrefab inventorySlotPrefab;
     public RectTransform dragLayer;
     
     public override void InstallBindings()
     {
         Container.Bind<InventorySlotContainerPrefab>().FromInstance(inventorySlotPrefab).AsSingle();
+        Container.Bind<HotbarSlotContainerPrefab>().FromInstance(hotbarSlotPrefab).AsSingle();
         Container.Bind<RectTransform>().WithId(InjectIds.DragLayer).FromInstance(dragLayer).AsSingle();
         Container.BindIFactory<StorageItemStackReference, RectTransform, InventorySlotContainerPrefab>().FromFactory<StorageSlotUIFactory>();
+        Container.BindIFactory<StorageItemStackReference, RectTransform, HotbarSlotContainerPrefab>().FromFactory<HotbarSlotUIFactory>();
         
         Container.Bind<LocationCollectables>().FromInstance(locationCollectables).AsSingle();
         Container.Bind<PlayerUnit>().FromInstance(playerUnit).AsSingle();
         Container.Bind<Player>().AsSingle();
 
+        Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
+        
         Container.Bind<HealthSystem>().AsSingle();
         Container.Bind<PressureSystem>().AsSingle();
         Container.Bind<AbsorbStorage>().AsSingle();

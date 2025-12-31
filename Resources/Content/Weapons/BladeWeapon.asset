@@ -16,6 +16,8 @@ MonoBehaviour:
   components:
   - rid: 5022904055200743492
   - rid: 5022904055200743493
+  - rid: 5022904078131527750
+  - rid: 5022904078131527943
   references:
     version: 2
     RefIds:
@@ -27,3 +29,11 @@ MonoBehaviour:
       type: {class: CmsAttackTimeComp, ns: , asm: Assembly-CSharp}
       data:
         attackTime: 1
+    - rid: 5022904078131527750
+      type: {class: CmsDamageComp, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 15
+    - rid: 5022904078131527943
+      type: {class: CmsInventoryIconComp, ns: , asm: Assembly-CSharp}
+      data:
+        icon: {fileID: -3120227408865008824, guid: 7ec7d5a99d6add649ad7390a541e86f0, type: 3}

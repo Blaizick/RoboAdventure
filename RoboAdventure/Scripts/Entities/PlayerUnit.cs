@@ -63,7 +63,7 @@ public class PlayerUnit : Unit
     {
         healthSystem.Init();
         pressureSystem.Init();
-        cmsEntity = Content.player;
+        cmsEntity = Units.player;
     }
 
     public void _Update()

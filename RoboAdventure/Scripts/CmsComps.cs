@@ -92,3 +92,9 @@ public class CmsAttackTimeComp : CmsComponent
 {
     public float attackTime;
 }
+
+[Serializable]
+public class CmsDamageComp : CmsComponent
+{
+    public float damage;
+}
