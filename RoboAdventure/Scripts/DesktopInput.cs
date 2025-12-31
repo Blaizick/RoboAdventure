@@ -42,9 +42,9 @@ public class DesktopInput
 
         if (actions.Player.Attack.IsPressed())
         {
-            if (weapons.curWeapon != null)
+            if (weapons.activeWeapon != null)
             {
-                weapons.curWeapon.Attack();
+                weapons.activeWeapon.Use();
             }
         }
         

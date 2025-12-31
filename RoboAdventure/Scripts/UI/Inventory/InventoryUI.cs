@@ -40,7 +40,7 @@ public class InventoryUI : MonoBehaviour
     
     public void Init()
     {
-        inventory.onChange += Rebuild;
+        inventory.onChange.AddListener(Rebuild);
 
         inventorySlots.Clear();
         Rebuild();

@@ -20,7 +20,7 @@ public class EnergyUI : MonoBehaviour
     {
         absorbButton.onClick.AddListener(() => energySystem.Absorb());
 
-        energySystem.absorbStorage.onChange += Rebuild;
+        energySystem.absorbStorage.onChange.AddListener(Rebuild);
         Rebuild();
     }
 

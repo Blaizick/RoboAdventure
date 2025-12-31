@@ -55,7 +55,7 @@ public class AbsorbStorage : Storage
         var stack = stacks[0];
         stacks[0] = null;
         itemsDic.Clear();
-        onChange();
+        onChange?.Invoke();
         return stack;
     }
 }

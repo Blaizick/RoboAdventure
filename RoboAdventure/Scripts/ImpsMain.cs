@@ -11,7 +11,8 @@ public class ImpsMain : MonoBehaviour
     [Inject] public LocationCollectables locationCollectables;
     [Inject] public EnergySystem energySystem;
     [Inject] public LayerMasksBehaviour layerMasks;
-
+    [Inject] public Inventory inventory;
+    
     public List<Enemy> enemies = new();
     
     public void Start()
@@ -26,6 +27,8 @@ public class ImpsMain : MonoBehaviour
 
         foreach (var i in enemies)
             i.Init();
+        
+        inventory.Add(WeaponsContent.blade);
     }
     public void Update()
     {

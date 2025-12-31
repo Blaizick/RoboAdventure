@@ -98,3 +98,9 @@ public class CmsDamageComp : CmsComponent
 {
     public float damage;
 }
+
+[Serializable]
+public class CmsPrefabComp : CmsComponent
+{
+    public GameObject prefab;
+}

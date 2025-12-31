@@ -18,6 +18,8 @@ MonoBehaviour:
   - rid: 5022904055200743493
   - rid: 5022904078131527750
   - rid: 5022904078131527943
+  - rid: 5022904081886216261
+  - rid: 5022904081886216262
   references:
     version: 2
     RefIds:
@@ -37,3 +39,11 @@ MonoBehaviour:
       type: {class: CmsInventoryIconComp, ns: , asm: Assembly-CSharp}
       data:
         icon: {fileID: -3120227408865008824, guid: 7ec7d5a99d6add649ad7390a541e86f0, type: 3}
+    - rid: 5022904081886216261
+      type: {class: CmsMaxItemsInStackComp, ns: , asm: Assembly-CSharp}
+      data:
+        maxItemsInStack: 1
+    - rid: 5022904081886216262
+      type: {class: CmsPrefabComp, ns: , asm: Assembly-CSharp}
+      data:
+        prefab: {fileID: 6488280981082373769, guid: 5ffd1ece365b2db488f989f458fce135, type: 3}

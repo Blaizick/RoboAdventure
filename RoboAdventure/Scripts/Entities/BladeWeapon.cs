@@ -2,7 +2,7 @@
 using UnityEngine;
 
 
-public class BladeWeapon : MonoBehaviour
+public class BladeWeapon : Weapon
 {
     [NonSerialized] public bool attacking;
     [NonSerialized] public float curAttackTime;
@@ -23,7 +23,7 @@ public class BladeWeapon : MonoBehaviour
 
     [NonSerialized] public float attackDamage;
     
-    public void Init()
+    public override void Init()
     {
         cmsEntity = WeaponsContent.blade;
         
@@ -56,7 +56,7 @@ public class BladeWeapon : MonoBehaviour
     }
 
 
-    public void Attack()
+    public override void Use()
     {
         if (reloaded && !attacking)
         {

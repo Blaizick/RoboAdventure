@@ -11,7 +11,7 @@ public class Storage
     public List<LimitedItemStack> stacks;
     public Dictionary<CmsEntity, ItemStack> itemsDic = new();
     
-    public UnityAction onChange;
+    public UnityEvent onChange = new();
 
     public Storage(int size)
     {
@@ -35,14 +35,32 @@ public class Storage
         stacks[index] = null;
         onChange?.Invoke();
     }
-    public void AddAt(ItemStack stack, int index)
+
+    public int RemoveAt(int index, int count)
     {
-        AddToItemsDic(stack);
-        if (stacks[index] == null)
-            stacks[index] = new LimitedItemStack(stack);
-        else
-            stacks[index].Add(stack.count);
+        if (stacks[index] == null) return 0;
+        int removed = stacks[index].Remove(count);
+        itemsDic[stacks[index].item].count -= removed;
+        if (stacks[index].count == 0)
+            stacks[index] = null;
         onChange?.Invoke();
+        return removed;
+    }
+    public int AddAt(int index, ItemStack itemStack)
+    {
+        var added = 0;
+        if (stacks[index] == null)
+        {
+            stacks[index] = new LimitedItemStack(itemStack.item, itemStack.count);
+            added = itemStack.count;
+        }
+        else
+        {
+            added = stacks[index].Add(itemStack.count);
+        }
+        AddToItemsDic(itemStack);
+        onChange?.Invoke();
+        return added;
     }
 
     private void AddToItemsDic(ItemStack stack)
@@ -147,13 +165,27 @@ public class Storage
     public void Move(int sourceStackId, StorageItemStackReference targetRef)
     {
         if (targetRef.storage == this && targetRef.stackId == sourceStackId)
-        {
             return;
-        }
 
-        var stack = GetAt(sourceStackId);
-        RemoveAt(sourceStackId);
-        targetRef.storage.AddAt(stack, targetRef.stackId);
+        var sourceStack = GetAt(sourceStackId);
+        var targetStack = targetRef.storage.GetAt(targetRef.stackId);
+        if (targetStack == null)
+        {
+            var added = targetRef.storage.AddAt(targetRef.stackId, sourceStack);
+            RemoveAt(sourceStackId, added);
+        }
+        else if (targetStack.item == sourceStack.item)
+        {
+            var added = targetRef.storage.AddAt(targetRef.stackId, sourceStack);
+            RemoveAt(sourceStackId, added);
+        }
+        else
+        {
+            RemoveAt(sourceStackId);
+            AddAt(sourceStackId, targetStack);
+            targetRef.storage.RemoveAt(targetRef.stackId);
+            targetRef.storage.AddAt(targetRef.stackId, sourceStack);
+        }
     }
 }
 
@@ -173,5 +205,8 @@ public class Inventory : Storage
 {
     public const int InventorySize = 10;
 
-    public Inventory() : base(InventorySize) { }
+    public Inventory() : base(InventorySize)
+    {
+        
+    }
 }

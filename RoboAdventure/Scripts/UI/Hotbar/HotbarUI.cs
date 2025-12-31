@@ -8,20 +8,38 @@ public class Hotbar : Storage
 {
     public int activeSlot;
     private float m_Scrolled = 0;
+
+    public Weapons weapons;
     
-    public Hotbar() : base(5)
+    public Hotbar(Weapons weapons) : base(5)
     {
+        this.weapons = weapons;
         
+        onChange.AddListener(() => SetActiveSlot(activeSlot));
     }
 
     public void ChangeActiveSlot(int count)
     {
-        activeSlot += count;
+        int id = this.activeSlot;
+        id += count;
         
-        if (activeSlot < 0)
-            activeSlot += size;
-        if (activeSlot >= size)
-            activeSlot -= size;
+        if (id < 0)
+            id += size;
+        if (id >= size)
+            id -= size;
+        
+        SetActiveSlot(id);
+    }
+
+    public void SetActiveSlot(int id)
+    {
+        activeSlot = id;
+        
+        weapons.RemoveWeapons();
+        if (stacks[id] != null && stacks[id].item.TryGet<CmsPrefabComp>(out var prefabComp))
+        {
+            weapons.SetActiveWeapon(weapons.Create(prefabComp.prefab));
+        }
     }
 
     public void Change(float val)
@@ -69,7 +87,7 @@ public class HotbarUI : MonoBehaviour
 
     public void Init()
     {
-        hotbar.onChange += Rebuild;
+        hotbar.onChange.AddListener(Rebuild);
 
         slots.Clear();
         Rebuild();

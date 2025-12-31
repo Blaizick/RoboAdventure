@@ -19,7 +19,6 @@ public class InstallerMain : MonoInstaller
     public HotbarUI hotbarUI;
     public UI ui;
 
-    public BladeWeapon bladeWeapon;
     public Weapons weapons;
     public LayerMasksBehaviour layerMasksBehaviour;
     
@@ -41,6 +40,7 @@ public class InstallerMain : MonoInstaller
 
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
         
+        Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
         Container.Bind<HealthSystem>().AsSingle();
         Container.Bind<PressureSystem>().AsSingle();
         Container.Bind<AbsorbStorage>().AsSingle();
@@ -56,9 +56,6 @@ public class InstallerMain : MonoInstaller
         Container.Bind<EnergyUI>().FromInstance(energyUI).AsSingle();
         Container.Bind<HotbarUI>().FromInstance(hotbarUI).AsSingle();
         Container.Bind<UI>().FromInstance(ui).AsSingle();
-        
-        Container.Bind<BladeWeapon>().FromInstance(bladeWeapon).AsSingle();
-        Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
         
         Container.Bind<DesktopInput>().AsSingle();
         

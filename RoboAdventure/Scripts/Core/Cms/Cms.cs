@@ -38,4 +38,11 @@ public class CmsEntity
     {
         return (T)componentsDic[typeof(T)];
     }
+
+    public bool TryGet<T>(out T component) where T : CmsComponent
+    {
+        bool success = componentsDic.TryGetValue(typeof(T), out var comp);
+        component = (T)comp;
+        return success;
+    }
 }
