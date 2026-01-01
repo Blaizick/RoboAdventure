@@ -50,8 +50,11 @@ public class PlayerUnit : Unit
     [NonSerialized] public float maxCollectionTime;
     
     [Inject] public PressureSystem pressureSystem;
-
+    [Inject] public Weapons weapons;
+    
     public Material waterMaterial;
+
+    private bool m_LookingRight = true;
 
     [Inject]
     public void Construct(HealthSystem healthSystem)
@@ -77,7 +80,24 @@ public class PlayerUnit : Unit
     
     public void Move(Vector2 input)
     {
-        rb.linearVelocity = input * cmsEntity.Get<CmsMoveSpeedComp>().moveSpeed;
+        bool movingOpposite =
+            (input.x > 0.01f && !m_LookingRight) ||
+            (input.x < -0.01f && m_LookingRight);
+        float movingOppositeFactor = movingOpposite ? 0.75f : 1f;
+        
+        rb.linearVelocity = input * (cmsEntity.Get<CmsMoveSpeedComp>().moveSpeed * movingOppositeFactor);
+    }
+
+    public void LookAtMouse(Vector2 mouseWorldPosition)
+    {
+        Vector2 dir = mouseWorldPosition - (Vector2)transform.position;
+        if ((dir.x > 0.01f && !m_LookingRight)  || (dir.x < 0.01f && m_LookingRight))
+        {
+            transform.rotation = Quaternion.Euler(0.0f, transform.eulerAngles.y + 180.0f, 0.0f);
+            // transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
+            m_LookingRight = !m_LookingRight;
+            weapons.SetLookingRight(m_LookingRight);
+        }
     }
     
     public void ProgressCollection(bool collection)

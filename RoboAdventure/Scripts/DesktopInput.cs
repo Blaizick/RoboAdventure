@@ -37,6 +37,10 @@ public class DesktopInput
         else
             playerUnit.ProgressCollection(false);
 
+        Vector2 mousePosition = actions.Player.MousePosition.ReadValue<Vector2>();
+        Vector2 mouseWorldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
+        playerUnit.LookAtMouse(mouseWorldPosition);
+        
         if (actions.Player.Inventory.WasCompletedThisFrame())
             ui.SwitchInventoryVisibility();
 
@@ -49,6 +53,6 @@ public class DesktopInput
         }
         
         var scrollVal = actions.Player.Scroll.ReadValue<float>();
-        hotbar.Change(scrollVal);
+        hotbar.Change(-scrollVal);
     }
 }

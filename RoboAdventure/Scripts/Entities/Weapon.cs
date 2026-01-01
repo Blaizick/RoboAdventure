@@ -2,6 +2,8 @@
 
 public class Weapon : MonoBehaviour
 {
+    public bool lookingRight = true;
+    
     public virtual void Use()
     {
         

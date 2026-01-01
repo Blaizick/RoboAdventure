@@ -38,4 +38,12 @@ public class Weapons : MonoBehaviour
     {
         activeWeapon = weapon;
     }
+
+    public void SetLookingRight(bool lookingRight)
+    {
+        foreach (var i in weapons)
+        {
+            i.weapon.lookingRight = lookingRight;
+        }
+    }
 }

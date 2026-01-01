@@ -183,9 +183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511b03a21e974ef59dda0cbc7debb5a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BladeWeapon
+  lookingRight: 1
   rotateRoot: {fileID: 3628962218743980715}
-  startRotation: {x: 0, y: 0, z: 0.70710677, w: 0.70710677}
-  endRotation: {x: 0, y: 0, z: -0.70710677, w: 0.70710677}
+  startRotation: 90
+  endRotation: -90
+  backwardEndRotation: 270
   spriteRoot: {fileID: 1694423430039863504}
 --- !u!1 &6488280981082373769
 GameObject:

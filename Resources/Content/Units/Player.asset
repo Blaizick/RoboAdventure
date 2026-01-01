@@ -22,7 +22,7 @@ MonoBehaviour:
     - rid: 5022903834250576116
       type: {class: CmsCollectionRangeComp, ns: , asm: Assembly-CSharp}
       data:
-        collectionRange: 1.25
+        collectionRange: 2
     - rid: 5022903834250576117
       type: {class: CmsMoveSpeedComp, ns: , asm: Assembly-CSharp}
       data:

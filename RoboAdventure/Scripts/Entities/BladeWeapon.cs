@@ -16,8 +16,9 @@ public class BladeWeapon : Weapon
 
     public Transform rotateRoot;
 
-    public Quaternion startRotation;
-    public Quaternion endRotation;
+    public float startRotation;
+    public float endRotation;
+    public float backwardEndRotation;
     
     public GameObject spriteRoot;
 
@@ -43,7 +44,10 @@ public class BladeWeapon : Weapon
         if (attacking)
         {
             curAttackTime += Time.deltaTime;
-            rotateRoot.transform.rotation = Quaternion.Lerp(startRotation, endRotation, curAttackTime / attackTime);
+            
+            float endRotation = lookingRight ? this.endRotation : backwardEndRotation;
+            rotateRoot.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(startRotation, endRotation, curAttackTime / attackTime));
+            
             if (curAttackTime > attackTime)
             {
                 attacking = false;
