@@ -12,19 +12,20 @@ public class ImpsMain : MonoBehaviour
     [Inject] public EnergySystem energySystem;
     [Inject] public LayerMasksBehaviour layerMasks;
     [Inject] public Inventory inventory;
+    [Inject] public PostProcessing postProcessing;
     
     public List<Enemy> enemies = new();
     
     public void Start()
     {
         layerMasks.Init();
-        Content.Init();
         locationCollectables.Init();
         input.Init();
         player.Init();
         ui.Init();
         energySystem.Init();
-
+        postProcessing.Init();
+        
         foreach (var i in enemies)
             i.Init();
         
@@ -37,5 +38,6 @@ public class ImpsMain : MonoBehaviour
         cameraBehaviour._Update();
         ui._Update();
         energySystem._Update();
+        postProcessing._Update();
     }
 }

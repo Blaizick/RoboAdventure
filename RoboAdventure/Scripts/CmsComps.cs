@@ -104,3 +104,12 @@ public class CmsPrefabComp : CmsComponent
 {
     public GameObject prefab;
 }
+
+
+[Serializable]
+public class CmsPostProcessingComp : CmsComponent
+{
+    public float vignettePerPressureUnit;
+    public float chromaticAbberationPerPressureUnit;
+    public float lensDistortionPerPressureUnit;
+}

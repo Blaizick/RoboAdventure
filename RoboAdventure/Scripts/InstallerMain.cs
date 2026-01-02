@@ -1,10 +1,12 @@
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 using Zenject;
 
 public static class InjectIds
 {
     public const string DragLayer = "DragLayer";
-    public const string HotbarSlotFactory = "HotbarSlotFactory";
+    public const string PostProcessingCmsEntity = "PostProcessingCmsEntity";
 }
 
 public class InstallerMain : MonoInstaller
@@ -25,9 +27,13 @@ public class InstallerMain : MonoInstaller
     public HotbarSlotContainerPrefab hotbarSlotPrefab;
     public InventorySlotContainerPrefab inventorySlotPrefab;
     public RectTransform dragLayer;
+
+    public Volume volume;
     
     public override void InstallBindings()
     {
+        Content.Init();
+        
         Container.Bind<InventorySlotContainerPrefab>().FromInstance(inventorySlotPrefab).AsSingle();
         Container.Bind<HotbarSlotContainerPrefab>().FromInstance(hotbarSlotPrefab).AsSingle();
         Container.Bind<RectTransform>().WithId(InjectIds.DragLayer).FromInstance(dragLayer).AsSingle();
@@ -41,13 +47,17 @@ public class InstallerMain : MonoInstaller
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
         
         Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
-        Container.Bind<HealthSystem>().AsSingle();
+        Container.Bind<HealthSystem>().FromInstance(new HealthSystem(Units.player.Get<CmsHealthComp>().health)).AsSingle();
         Container.Bind<PressureSystem>().AsSingle();
         Container.Bind<AbsorbStorage>().AsSingle();
         Container.Bind<Inventory>().AsSingle();
         Container.Bind<CraftSystem>().AsSingle();
         Container.Bind<EnergySystem>().AsSingle();
         Container.Bind<Hotbar>().AsSingle();
+
+        Container.Bind<Volume>().FromInstance(volume).AsSingle();
+        Container.Bind<CmsEntity>().WithId(InjectIds.PostProcessingCmsEntity).FromInstance(Profiles.postProcessing).AsSingle();
+        Container.Bind<PostProcessing>().AsSingle();
         
         Container.Bind<HUDUI>().FromInstance(hudUI).AsSingle();
         Container.Bind<CraftUI>().FromInstance(craftUI).AsSingle();

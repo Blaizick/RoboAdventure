@@ -15,6 +15,7 @@ public static class Content
         WeaponsContent.Init();
         CraftRecipes.Init();
         Units.Init();
+        Profiles.Init();
     }
 }
 
@@ -69,5 +70,15 @@ public static class Units
             enemy,
             player
         };
+    }
+}
+
+public static class Profiles
+{
+    public static CmsEntity postProcessing;
+
+    public static void Init()
+    {
+        postProcessing = Cms.Get("PostProcessing");
     }
 }

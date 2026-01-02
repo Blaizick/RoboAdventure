@@ -26,6 +26,16 @@ public class PressureSystem
     
     public const float DeadlyPressureDifference = 6.0f;
     
+    public HealthSystem healthSystem;
+
+    public const float PressureDamageDifference = 1.0f;
+    public const float PressureDamage = 1.25f;
+    
+    public PressureSystem(HealthSystem healthSystem)
+    {
+        this.healthSystem = healthSystem;
+    }
+    
     public void Init()
     {
         pressureResitance = OverridePressureResistance;
@@ -34,15 +44,19 @@ public class PressureSystem
     public void _Update()
     {
         Recount();
+        if (m_Pressure > PressureDamageDifference)
+        {
+            healthSystem.TakeDamage(m_Pressure * PressureDamage * Time.deltaTime);
+        }
     }
 
     public void Recount()
     {
-        m_Pressure = (m_Depth * PressurePerInit) - pressureResitance;
+        m_Pressure = Mathf.Clamp((m_Depth * PressurePerInit) - pressureResitance, 0, Mathf.Infinity);
     }
 
     public void SetDepthFromY(float y)
     {
-        m_Depth = Mathf.Clamp(-y, 0, Mathf.Infinity);
+        m_Depth = -y;
     }
 }

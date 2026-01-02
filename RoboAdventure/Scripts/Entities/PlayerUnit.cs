@@ -64,9 +64,9 @@ public class PlayerUnit : Unit
     
     public override void Init()
     {
+        cmsEntity = Units.player;
         healthSystem.Init();
         pressureSystem.Init();
-        cmsEntity = Units.player;
     }
 
     public void _Update()
@@ -94,7 +94,6 @@ public class PlayerUnit : Unit
         if ((dir.x > 0.01f && !m_LookingRight)  || (dir.x < 0.01f && m_LookingRight))
         {
             transform.rotation = Quaternion.Euler(0.0f, transform.eulerAngles.y + 180.0f, 0.0f);
-            // transform.localScale = new Vector3(-transform.localScale.x, transform.localScale.y, transform.localScale.z);
             m_LookingRight = !m_LookingRight;
             weapons.SetLookingRight(m_LookingRight);
         }

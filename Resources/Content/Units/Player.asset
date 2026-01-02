@@ -16,9 +16,14 @@ MonoBehaviour:
   components:
   - rid: 5022903834250576116
   - rid: 5022903834250576117
+  - rid: 2352840588970164293
   references:
     version: 2
     RefIds:
+    - rid: 2352840588970164293
+      type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
+      data:
+        health: 100
     - rid: 5022903834250576116
       type: {class: CmsCollectionRangeComp, ns: , asm: Assembly-CSharp}
       data:
