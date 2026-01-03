@@ -3,6 +3,6 @@ using UnityEngine;
 
 public class Collectable : MonoBehaviour
 {
-    public string cmsEntityId;
+    public CmsEntityPfb cmsEntityPfb;
     [NonSerialized] public CmsEntity cmsEntity;
 }

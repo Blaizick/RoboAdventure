@@ -20,7 +20,7 @@ public class HUDUI : MonoBehaviour
     public void _Update()
     {
         energyFiller.fillAmount = energySystem.energy / energySystem.maxEnergy;
-        pressureFiller.fillAmount = pressureSystem.Pressure / PressureSystem.DeadlyPressureDifference;
+        pressureFiller.fillAmount = pressureSystem.Pressure / pressureSystem.DeadlyPressure;
         healthFiller.fillAmount = healthSystem.Health / healthSystem.MaxHealth;
     }
 }

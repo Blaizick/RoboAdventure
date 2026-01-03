@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
-  m_Name: TestCraftRecipe
+  m_Name: PressureResistanceModule
   m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
-  id: TestCraftRecipe
+  id: PressureResitanceModule0Craft
   components:
   - rid: 5022903857348870212
   - rid: 5022903857348870213
@@ -27,12 +27,12 @@ MonoBehaviour:
       data:
         inputStacks:
         - item: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
-          count: 1
+          count: 2
     - rid: 5022903857348870213
       type: {class: CmsOutputItemsComp, ns: , asm: Assembly-CSharp}
       data:
         outputStacks:
-        - item: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
+        - item: {fileID: 11400000, guid: 278f070471c23f04bb9f207c1f239778, type: 2}
           count: 1
     - rid: 5022903857348870214
       type: {class: CmsCraftingTimeComp, ns: , asm: Assembly-CSharp}
@@ -41,8 +41,8 @@ MonoBehaviour:
     - rid: 5022903857348870215
       type: {class: CmsSpriteComp, ns: , asm: Assembly-CSharp}
       data:
-        sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+        sprite: {fileID: -5191734818339715932, guid: 63bacd2841d155147b42084aa6f6f83a, type: 3}
     - rid: 5022903857348870216
       type: {class: CmsNameComp, ns: , asm: Assembly-CSharp}
       data:
-        name: Test
+        name: Pressure Resistance Module 1

@@ -17,6 +17,7 @@ MonoBehaviour:
   - rid: 5022903834250576116
   - rid: 5022903834250576117
   - rid: 2352840588970164293
+  - rid: 2352840607753044040
   references:
     version: 2
     RefIds:
@@ -24,6 +25,10 @@ MonoBehaviour:
       type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
       data:
         health: 100
+    - rid: 2352840607753044040
+      type: {class: CmsInvincibilityTimeComp, ns: , asm: Assembly-CSharp}
+      data:
+        invincibilityTime: 1.5
     - rid: 5022903834250576116
       type: {class: CmsCollectionRangeComp, ns: , asm: Assembly-CSharp}
       data:

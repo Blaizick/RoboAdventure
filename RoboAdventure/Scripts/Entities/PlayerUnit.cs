@@ -6,13 +6,13 @@ public class Player
 {
     [Inject] public PlayerUnit unit;
     [Inject] public EnergySystem energySystem;    
-    [Inject] public Weapons Weapons;
+    [Inject] public Weapons weapons;
     
     public void Init()
     {
-        energySystem.Init();
+        // energySystem.Initialize();
         unit.Init();
-        Weapons.Init();
+        weapons.Initialize();
     }
 
     public void _Update()
@@ -51,15 +51,16 @@ public class PlayerUnit : Unit
     
     [Inject] public PressureSystem pressureSystem;
     [Inject] public Weapons weapons;
-    
+
     public Material waterMaterial;
 
     private bool m_LookingRight = true;
 
     [Inject]
-    public void Construct(HealthSystem healthSystem)
+    public void Construct(HealthSystem healthSystem, InvincibilitySystem invincibilitySystem)
     {
         this.healthSystem = healthSystem;
+        this.invincibilitySystem = invincibilitySystem;
     }
     
     public override void Init()
@@ -67,10 +68,12 @@ public class PlayerUnit : Unit
         cmsEntity = Units.player;
         healthSystem.Init();
         pressureSystem.Init();
+        invincibilitySystem.Init();
     }
 
     public void _Update()
     {
+        invincibilitySystem._Update();
         healthSystem._Update();
         pressureSystem.SetDepthFromY(transform.position.y);
         pressureSystem._Update();

@@ -45,4 +45,9 @@ public class CmsEntity
         component = (T)comp;
         return success;
     }
+
+    public bool HasComponent<T>() where T : CmsComponent
+    {
+        return componentsDic.ContainsKey(typeof(T));
+    }
 }

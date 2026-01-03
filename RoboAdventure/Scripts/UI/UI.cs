@@ -10,6 +10,7 @@ public class UI : MonoBehaviour
     [Inject, NonSerialized] public EnergyUI energyUI;
     [Inject, NonSerialized] public HUDUI hudUI;
     [Inject, NonSerialized] public HotbarUI hotbarUI;
+    [Inject, NonSerialized] public ModulesUI modulesUI;
 
     public GameObject inventoryRoot;
     
@@ -21,6 +22,7 @@ public class UI : MonoBehaviour
         energyUI.Init();
         hudUI.Init();
         hotbarUI.Init();
+        modulesUI.Init();
     }
 
     public void _Update()

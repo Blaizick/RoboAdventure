@@ -1,15 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class LocationCollectables : MonoBehaviour
 {
-    public List<Collectable> collectables = new();
+    [NonSerialized] public List<Collectable> collectables = new();
 
     public void Init()
     {
-        foreach (var collectable in collectables)
+        foreach (var collectable in Resources.FindObjectsOfTypeAll<Collectable>())
         {
-            collectable.cmsEntity = Cms.Get(collectable.cmsEntityId);
+            collectable.cmsEntity = Cms.Get(collectable.cmsEntityPfb.id);
+            collectables.Add(collectable);
         }
     }
     

@@ -10,35 +10,27 @@ public class Redtopus : Unit
 
     public SpriteRenderer spriteRenderer;
 
-    [NonSerialized] public bool colorPunch;
-    [NonSerialized] public float colorPunchTime;
-    [NonSerialized] public Color overrideColor;
-    public static readonly Color ColorPunchColor = Color.softRed;
-    public const float ColorPunchDuration = 0.3f;
-
     private float m_TimeSinceLastPush;
+    
     private CmsPushMoveComp m_PushMoveComp;
     private CmsPushMoveSpritesComp m_SpritesComp;
     private CmsRotationOffsetComp m_RotationOffsetComp;
     private CmsDamageComp m_DamageComp;
-    
+
     public override void Init()
     {
-        overrideColor = spriteRenderer.color;
         cmsEntity = Units.redtopus;
 
         m_PushMoveComp = cmsEntity.GetComponent<CmsPushMoveComp>();
         m_SpritesComp = cmsEntity.GetComponent<CmsPushMoveSpritesComp>();
         m_RotationOffsetComp = cmsEntity.GetComponent<CmsRotationOffsetComp>();
         m_DamageComp = cmsEntity.GetComponent<CmsDamageComp>();
-        
+
         base.Init();
         
-        healthSystem.onDamaged.AddListener(() =>
-        {
-            colorPunch = true;
-            colorPunchTime = 0f;
-        });
+        colorPunchSystem = new(.3f, Color.softRed, spriteRenderer);
+        colorPunchSystem.Init();
+        healthSystem.onDamaged.AddListener(colorPunchSystem.Punch);
     }
 
     public override void Update()
@@ -73,29 +65,12 @@ public class Redtopus : Unit
         }
         m_TimeSinceLastPush += Time.deltaTime;
 
-        if (colorPunch)
-        {
-            colorPunchTime += Time.deltaTime;
-            if (colorPunchTime >= ColorPunchDuration)
-            {
-                colorPunch = false;
-                spriteRenderer.color = overrideColor;
-            }
-            else
-            {
-                if (colorPunchTime * 2 > ColorPunchDuration)
-                {
-                    spriteRenderer.color = Color.Lerp(ColorPunchColor, overrideColor, (colorPunchTime * 2 - colorPunchTime) / ColorPunchDuration);
-                }
-                else
-                {
-                    spriteRenderer.color = Color.Lerp(overrideColor, ColorPunchColor, colorPunchTime * 2 / ColorPunchDuration);
-                }
-            }
-        }
+        colorPunchSystem._Update();
+        
+        base.Update();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    private void OnCollisionStay2D(Collision2D other)
     {
         if (LayerMaskUtils.Contains(LayerMasks.playerMask, other.gameObject.layer))
         {

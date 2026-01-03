@@ -137,3 +137,27 @@ public class CmsRotationOffsetComp : CmsComponent
 {
     public float rotationOffset;
 }
+
+[Serializable]
+public class CmsInvincibilityTimeComp : CmsComponent
+{
+    public float invincibilityTime;
+}
+
+[Serializable]
+public class CmsPressureResistanceComp : CmsComponent
+{
+    public float pressureResistance;
+}
+
+[Serializable]
+public class CmsPressureSystemComp : CmsComponent
+{
+    public float deadlyPressure;
+    public float pressurePerInit;
+    public float damagingPressureThreshold;
+    public float pressureDamage;
+}
+
+[Serializable]
+public class CmsModuleTag : CmsComponent {}

@@ -2,6 +2,7 @@ using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 
 public class DesktopInput
 {

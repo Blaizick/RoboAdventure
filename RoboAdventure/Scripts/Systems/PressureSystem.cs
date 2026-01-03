@@ -2,6 +2,8 @@
 
 public class PressureSystem
 {
+    public CmsEntity cmsEntity;
+    
     private float m_Depth;
     private float m_Pressure;
 
@@ -18,19 +20,18 @@ public class PressureSystem
         }
     }
     public float Pressure => m_Pressure;
+
+    public float PressureResistance => outerPressureResistance + cmsEntity.GetComponent<CmsPressureResistanceComp>().pressureResistance;
     
-    public const float PressurePerInit = 1.0f / 5.0f;
-    
-    public const float OverridePressureResistance = 3.0f;
-    public float pressureResitance;
-    
-    public const float DeadlyPressureDifference = 6.0f;
+    /// <summary>
+    /// Pressure resistance modified by outer factors(like modules), is resetted every frame
+    /// </summary>
+    public float outerPressureResistance;
+   
+    public float DeadlyPressure => cmsEntity.GetComponent<CmsPressureSystemComp>().deadlyPressure;
     
     public HealthSystem healthSystem;
 
-    public const float PressureDamageDifference = 1.0f;
-    public const float PressureDamage = 1.25f;
-    
     public PressureSystem(HealthSystem healthSystem)
     {
         this.healthSystem = healthSystem;
@@ -38,21 +39,26 @@ public class PressureSystem
     
     public void Init()
     {
-        pressureResitance = OverridePressureResistance;
+        cmsEntity = Profiles.pressureSystem;
     }
 
     public void _Update()
     {
         Recount();
-        if (m_Pressure > PressureDamageDifference)
+        
+        CmsPressureSystemComp comp = cmsEntity.GetComponent<CmsPressureSystemComp>();
+        if (m_Pressure > comp.damagingPressureThreshold)
         {
-            healthSystem.TakeDamage(m_Pressure * PressureDamage * Time.deltaTime);
+            healthSystem.TakeDamage((m_Pressure - comp.damagingPressureThreshold) * comp.pressureDamage * Time.deltaTime, true);
         }
+        
+        outerPressureResistance = 0.0f;
     }
 
     public void Recount()
     {
-        m_Pressure = Mathf.Clamp((m_Depth * PressurePerInit) - pressureResitance, 0, Mathf.Infinity);
+        CmsPressureSystemComp comp = cmsEntity.GetComponent<CmsPressureSystemComp>();
+        m_Pressure = Mathf.Clamp((m_Depth * comp.pressurePerInit) - PressureResistance, 0, Mathf.Infinity);
     }
 
     public void SetDepthFromY(float y)

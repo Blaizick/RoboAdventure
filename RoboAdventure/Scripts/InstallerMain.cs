@@ -1,7 +1,9 @@
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UIElements;
 using Zenject;
+using Zenject.SpaceFighter;
 
 public static class InjectIds
 {
@@ -19,6 +21,7 @@ public class InstallerMain : MonoInstaller
     public PlayerUI playerUI;
     public HUDUI hudUI;
     public HotbarUI hotbarUI;
+    public ModulesUI modulesUI;
     public UI ui;
 
     public Weapons weapons;
@@ -41,20 +44,25 @@ public class InstallerMain : MonoInstaller
         Container.BindIFactory<StorageItemStackReference, RectTransform, HotbarSlotContainerPrefab>().FromFactory<HotbarSlotUIFactory>();
         
         Container.Bind<LocationCollectables>().FromInstance(locationCollectables).AsSingle();
-        Container.Bind<PlayerUnit>().FromInstance(playerUnit).AsSingle();
-        Container.Bind<Player>().AsSingle();
 
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
         
         Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
-        Container.Bind<HealthSystem>().FromInstance(new HealthSystem(Units.player.GetComponent<CmsHealthComp>().health)).AsSingle();
+        Container.Bind<HealthSystem>().AsSingle().
+            WithArguments(Units.player.GetComponent<CmsHealthComp>().health);
         Container.Bind<PressureSystem>().AsSingle();
         Container.Bind<AbsorbStorage>().AsSingle();
         Container.Bind<Inventory>().AsSingle();
         Container.Bind<CraftSystem>().AsSingle();
         Container.Bind<EnergySystem>().AsSingle();
         Container.Bind<Hotbar>().AsSingle();
-
+        Container.Bind<InvincibilitySystem>().AsSingle().
+            WithArguments(Units.player.GetComponent<CmsInvincibilityTimeComp>().invincibilityTime);
+        Container.Bind<Modules>().AsSingle();
+        
+        Container.Bind<PlayerUnit>().FromInstance(playerUnit).AsSingle();
+        Container.Bind<Player>().AsSingle();
+        
         Container.Bind<Volume>().FromInstance(volume).AsSingle();
         Container.Bind<CmsEntity>().WithId(InjectIds.PostProcessingCmsEntity).FromInstance(Profiles.postProcessing).AsSingle();
         Container.Bind<PostProcessing>().AsSingle();
@@ -65,6 +73,7 @@ public class InstallerMain : MonoInstaller
         Container.Bind<PlayerUI>().FromInstance(playerUI).AsSingle();
         Container.Bind<EnergyUI>().FromInstance(energyUI).AsSingle();
         Container.Bind<HotbarUI>().FromInstance(hotbarUI).AsSingle();
+        Container.Bind<ModulesUI>().FromInstance(modulesUI).AsSingle();
         Container.Bind<UI>().FromInstance(ui).AsSingle();
         
         Container.Bind<DesktopInput>().AsSingle();

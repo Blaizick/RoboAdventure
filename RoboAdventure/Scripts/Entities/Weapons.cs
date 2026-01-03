@@ -4,8 +4,9 @@ using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using Zenject;
+using IInitializable = Zenject.IInitializable;
 
-public class Weapons : MonoBehaviour
+public class Weapons : MonoBehaviour, IInitializable
 {
     [NonSerialized] public List<WeaponContainerPrefab> weapons = new();
 
@@ -13,9 +14,9 @@ public class Weapons : MonoBehaviour
     
     public Transform weaponsRootTransform;
     
-    public void Init()
+    public void Initialize()
     {
-                
+        
     }
 
     public Weapon Create(GameObject prefab)

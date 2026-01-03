@@ -13,6 +13,7 @@ public class ImpsMain : MonoBehaviour
     [Inject] public LayerMasksBehaviour layerMasks;
     [Inject] public Inventory inventory;
     [Inject] public PostProcessing postProcessing;
+    [Inject] public Modules modules;
     
     public List<Redtopus> enemies = new();
     
@@ -25,15 +26,18 @@ public class ImpsMain : MonoBehaviour
         ui.Init();
         energySystem.Init();
         postProcessing.Init();
-        
-        foreach (var i in enemies)
+
+        foreach (var i in Resources.FindObjectsOfTypeAll<Redtopus>())
+        {
             i.Init();
+        }
         
         inventory.Add(WeaponsContent.blade);
     }
     public void Update()
     {
         input._Update();
+        modules._Update();
         player._Update();
         cameraBehaviour._Update();
         ui._Update();
