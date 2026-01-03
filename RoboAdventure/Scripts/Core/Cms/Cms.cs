@@ -34,12 +34,12 @@ public class CmsEntity
     public string id;
     public Dictionary<Type, CmsComponent> componentsDic = new();
 
-    public T Get<T>() where T : CmsComponent
+    public T GetComponent<T>() where T : CmsComponent
     {
         return (T)componentsDic[typeof(T)];
     }
 
-    public bool TryGet<T>(out T component) where T : CmsComponent
+    public bool TryGetComponent<T>(out T component) where T : CmsComponent
     {
         bool success = componentsDic.TryGetValue(typeof(T), out var comp);
         component = (T)comp;

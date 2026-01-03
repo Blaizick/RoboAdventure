@@ -85,7 +85,7 @@ public class PlayerUnit : Unit
             (input.x < -0.01f && m_LookingRight);
         float movingOppositeFactor = movingOpposite ? 0.75f : 1f;
         
-        rb.linearVelocity = input * (cmsEntity.Get<CmsMoveSpeedComp>().moveSpeed * movingOppositeFactor);
+        rb.linearVelocity = input * (cmsEntity.GetComponent<CmsMoveSpeedComp>().moveSpeed * movingOppositeFactor);
     }
 
     public void LookAtMouse(Vector2 mouseWorldPosition)
@@ -106,7 +106,7 @@ public class PlayerUnit : Unit
             goto ResetAndReturn;
         }
 
-        var col = locationCollectables.GetCollectableWithin(transform.position, cmsEntity.Get<CmsCollectionRangeComp>().collectionRange);
+        var col = locationCollectables.GetCollectableWithin(transform.position, cmsEntity.GetComponent<CmsCollectionRangeComp>().collectionRange);
         if (!col)
         {
             goto ResetAndReturn;
@@ -114,7 +114,7 @@ public class PlayerUnit : Unit
 
         if (collectionCollectable != col)
         {
-            maxCollectionTime = col.cmsEntity.Get<CmsCollectionTimeComp>().collectionTime;
+            maxCollectionTime = col.cmsEntity.GetComponent<CmsCollectionTimeComp>().collectionTime;
             collectionCollectable = col;
             curCollectionTime = 0.0f;
             return;

@@ -24,7 +24,7 @@ MonoBehaviour:
     - rid: 5022903834250576114
       type: {class: CmsInventoryIconComp, ns: , asm: Assembly-CSharp}
       data:
-        icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+        icon: {fileID: 293691816, guid: b9045253f94c2694b89e9ce82248fd13, type: 3}
     - rid: 5022903834250576115
       type: {class: CmsCollectionTimeComp, ns: , asm: Assembly-CSharp}
       data:

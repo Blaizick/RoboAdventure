@@ -14,7 +14,7 @@ public class ImpsMain : MonoBehaviour
     [Inject] public Inventory inventory;
     [Inject] public PostProcessing postProcessing;
     
-    public List<Enemy> enemies = new();
+    public List<Redtopus> enemies = new();
     
     public void Start()
     {

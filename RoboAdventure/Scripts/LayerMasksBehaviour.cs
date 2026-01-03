@@ -23,7 +23,7 @@ public class LayerMasks
     public static LayerMask enemyMask;
 }
 
-public class LayerMaskUtility
+public class LayerMaskUtils
 {
     public static bool Contains(LayerMask layerMask, int layer)
     {

@@ -30,7 +30,7 @@ MonoBehaviour:
     - rid: 5022904055200743493
       type: {class: CmsAttackTimeComp, ns: , asm: Assembly-CSharp}
       data:
-        attackTime: 1
+        attackTime: 0.375
     - rid: 5022904078131527750
       type: {class: CmsDamageComp, ns: , asm: Assembly-CSharp}
       data:

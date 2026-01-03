@@ -36,7 +36,7 @@ public class Hotbar : Storage
         activeSlot = id;
         
         weapons.RemoveWeapons();
-        if (stacks[id] != null && stacks[id].item.TryGet<CmsPrefabComp>(out var prefabComp))
+        if (stacks[id] != null && stacks[id].item.TryGetComponent<CmsPrefabComp>(out var prefabComp))
         {
             weapons.SetActiveWeapon(weapons.Create(prefabComp.prefab));
         }
@@ -118,7 +118,7 @@ public class HotbarUI : MonoBehaviour
             script.itemIcon.gameObject.SetActive(stack != null);
             if (stack != null)
             {
-                script.itemIcon.sprite = stack.item.Get<CmsInventoryIconComp>().icon;
+                script.itemIcon.sprite = stack.item.GetComponent<CmsInventoryIconComp>().icon;
                 
                 script.itemCountText.gameObject.SetActive(stack.count > 1);
                 script.itemCountText.text = stack.count.ToString();                    

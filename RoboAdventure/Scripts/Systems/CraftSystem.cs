@@ -20,17 +20,17 @@ public class LimitedItemStack : ItemStack
     
     public LimitedItemStack(CmsEntity item) : base(item, 0)
     {
-        maxCount = base.item.Get<CmsMaxItemsInStackComp>().maxItemsInStack;
+        maxCount = base.item.GetComponent<CmsMaxItemsInStackComp>().maxItemsInStack;
     }
 
     public LimitedItemStack(CmsEntity item, int count) : base(item, count)
     {
-        maxCount = base.item.Get<CmsMaxItemsInStackComp>().maxItemsInStack;
+        maxCount = base.item.GetComponent<CmsMaxItemsInStackComp>().maxItemsInStack;
     }
 
     public LimitedItemStack(ItemStack itemStack) : base(itemStack)
     {
-        maxCount = base.item.Get<CmsMaxItemsInStackComp>().maxItemsInStack;
+        maxCount = base.item.GetComponent<CmsMaxItemsInStackComp>().maxItemsInStack;
     }
 
     public int GetSpace()
@@ -140,7 +140,7 @@ public class CraftSystem
     public bool CanCraft(CmsEntity recipe)
     {
         {
-            var cmsStacks = recipe.Get<CmsInputItemsComp>().inputStacks;
+            var cmsStacks = recipe.GetComponent<CmsInputItemsComp>().inputStacks;
             ItemStack[] stacks = new ItemStack[cmsStacks.Length];
             for (int i = 0; i < cmsStacks.Length; i++)
             {
@@ -154,7 +154,7 @@ public class CraftSystem
         }
 
         {
-            var cmsStacks = recipe.Get<CmsInputItemsComp>().inputStacks;
+            var cmsStacks = recipe.GetComponent<CmsInputItemsComp>().inputStacks;
             ItemStack[] stacks = new ItemStack[cmsStacks.Length];
             for (int i = 0; i < stacks.Length; i++)
             {
@@ -184,11 +184,11 @@ public class CraftSystem
     {
         curCraftingTime = 0;
         
-        foreach (var i in recipe.Get<CmsInputItemsComp>().inputStacks)
+        foreach (var i in recipe.GetComponent<CmsInputItemsComp>().inputStacks)
         {
             inventory.Remove(i.AsItemStack());
         }
-        foreach (var i in recipe.Get<CmsOutputItemsComp>().outputStacks)
+        foreach (var i in recipe.GetComponent<CmsOutputItemsComp>().outputStacks)
         {
             inventory.Add(i.AsItemStack());
         }
@@ -204,6 +204,6 @@ public class CraftSystem
     {
         this.recipe = recipe;
         curCraftingTime = 0;
-        craftingTime = recipe.Get<CmsCraftingTimeComp>().craftingTime;
+        craftingTime = recipe.GetComponent<CmsCraftingTimeComp>().craftingTime;
     }
 }

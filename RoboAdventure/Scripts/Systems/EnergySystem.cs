@@ -34,7 +34,7 @@ public class EnergySystem
     public void AbsorbUnchecked()
     {
         var stack = absorbStorage.Absorb();
-        float income = stack.item.Get<CmsEnergyIntensityComp>().energyIntensity * stack.count;
+        float income = stack.item.GetComponent<CmsEnergyIntensityComp>().energyIntensity * stack.count;
         energy = Mathf.Min(maxEnergy, energy + income);
     }
 }

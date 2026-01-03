@@ -55,19 +55,19 @@ public static class WeaponsContent
 
 public static class Units
 {
-    public static CmsEntity enemy;
+    public static CmsEntity redtopus;
     public static CmsEntity player;
     
     public static List<CmsEntity> all;
 
     public static void Init()
     {
-        enemy = Cms.Get("TestEnemy");
+        redtopus = Cms.Get("Redtopus");
         player = Cms.Get("Player");
 
         all = new()
         {
-            enemy,
+            redtopus,
             player
         };
     }

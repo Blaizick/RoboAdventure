@@ -65,7 +65,7 @@ public class InventoryUI : MonoBehaviour
             script.itemIcon.gameObject.SetActive(stack != null);
             if (stack != null)
             {
-                script.itemIcon.sprite = stack.item.Get<CmsInventoryIconComp>().icon;
+                script.itemIcon.sprite = stack.item.GetComponent<CmsInventoryIconComp>().icon;
                 
                 script.itemCountText.gameObject.SetActive(stack.count > 1);
                 script.itemCountText.text = stack.count.ToString();                    

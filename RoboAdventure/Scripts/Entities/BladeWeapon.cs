@@ -28,9 +28,9 @@ public class BladeWeapon : Weapon
     {
         cmsEntity = WeaponsContent.blade;
         
-        reloadTime = cmsEntity.Get<CmsReloadTimeComp>().reloadTime;
-        attackTime = cmsEntity.Get<CmsAttackTimeComp>().attackTime;
-        attackDamage = cmsEntity.Get<CmsDamageComp>().damage;
+        reloadTime = cmsEntity.GetComponent<CmsReloadTimeComp>().reloadTime;
+        attackTime = cmsEntity.GetComponent<CmsAttackTimeComp>().attackTime;
+        attackDamage = cmsEntity.GetComponent<CmsDamageComp>().damage;
     }
 
     public void Update()
@@ -80,7 +80,7 @@ public class BladeWeapon : Weapon
             return;
         }
         
-        if (LayerMaskUtility.Contains(LayerMasks.enemyMask, other.gameObject.layer))
+        if (LayerMaskUtils.Contains(LayerMasks.enemyMask, other.gameObject.layer))
         {
             if (other.TryGetComponent<Unit>(out var unit))
             {

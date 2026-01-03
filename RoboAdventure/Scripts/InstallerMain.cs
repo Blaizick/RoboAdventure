@@ -47,7 +47,7 @@ public class InstallerMain : MonoInstaller
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
         
         Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
-        Container.Bind<HealthSystem>().FromInstance(new HealthSystem(Units.player.Get<CmsHealthComp>().health)).AsSingle();
+        Container.Bind<HealthSystem>().FromInstance(new HealthSystem(Units.player.GetComponent<CmsHealthComp>().health)).AsSingle();
         Container.Bind<PressureSystem>().AsSingle();
         Container.Bind<AbsorbStorage>().AsSingle();
         Container.Bind<Inventory>().AsSingle();

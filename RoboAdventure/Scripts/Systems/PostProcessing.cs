@@ -28,7 +28,7 @@ public class PostProcessing
         volume.profile.TryGet(out m_LensDistortion);
         volume.profile.TryGet(out m_Vignette);
         
-        cmsEntity.TryGet(out m_CmsPostProcessingComp);
+        cmsEntity.TryGetComponent(out m_CmsPostProcessingComp);
     }
     
     public void _Update()

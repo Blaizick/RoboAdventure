@@ -41,7 +41,7 @@ public class EnergyUI : MonoBehaviour
         script.itemCountText.gameObject.SetActive(absorbStack != null);
         if (energySystem.absorbStorage.AbsorbStack != null)
         {
-            script.itemIcon.sprite = absorbStack.item.Get<CmsInventoryIconComp>().icon;
+            script.itemIcon.sprite = absorbStack.item.GetComponent<CmsInventoryIconComp>().icon;
             script.itemCountText.gameObject.SetActive(absorbStack.count > 1);
             script.itemCountText.text = absorbStack.count.ToString();
         }

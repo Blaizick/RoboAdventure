@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
+  m_Name: Redtopus
+  m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
+  id: Redtopus
+  components:
+  - rid: 5022904078131527680
+  - rid: 2352840605698097221
+  - rid: 2352840605698097222
+  - rid: 2352840605698097223
+  - rid: 2352840607753043968
+  references:
+    version: 2
+    RefIds:
+    - rid: 2352840605698097221
+      type: {class: CmsPushMoveComp, ns: , asm: Assembly-CSharp}
+      data:
+        pushCooldown: 2
+        pushDst: 200
+    - rid: 2352840605698097222
+      type: {class: CmsPushMoveSpritesComp, ns: , asm: Assembly-CSharp}
+      data:
+        idle: {fileID: -3619848014872671680, guid: 1a477e22ef4e3b245a1a52df699a26fc, type: 3}
+        pushed: {fileID: 388115091, guid: 1a477e22ef4e3b245a1a52df699a26fc, type: 3}
+        pushDuration: 0.5
+    - rid: 2352840605698097223
+      type: {class: CmsRotationOffsetComp, ns: , asm: Assembly-CSharp}
+      data:
+        rotationOffset: -90
+    - rid: 2352840607753043968
+      type: {class: CmsDamageComp, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 10
+    - rid: 5022904078131527680
+      type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
+      data:
+        health: 50

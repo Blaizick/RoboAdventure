@@ -76,7 +76,7 @@ public class CraftUI : MonoBehaviour
             var go = GameObject.Instantiate(craftRecipePrefab, recipesViewContentRootTransform);
             var script = go.GetComponent<CraftRecipeContainerPrefab>();
             
-            script.icon.sprite = recipe.Get<CmsSpriteComp>().sprite;
+            script.icon.sprite = recipe.GetComponent<CmsSpriteComp>().sprite;
             script.button.onClick.AddListener(() =>
             {
                 craftSystem.SelectRecipe(recipe);
@@ -90,10 +90,10 @@ public class CraftUI : MonoBehaviour
 
     public void ShowRecipe(CmsEntity cmsEntity)
     {
-        recipeNameText.text = cmsEntity.Get<CmsNameComp>().name;
+        recipeNameText.text = cmsEntity.GetComponent<CmsNameComp>().name;
         
-        RebuildItemStacks(cmsEntity.Get<CmsInputItemsComp>().inputStacks, recipeIngradientsContentRootTransform, recipeIngradientInstances);
-        RebuildItemStacks(cmsEntity.Get<CmsOutputItemsComp>().outputStacks, recipeProductsContentRootTransform, recipeProductInstances);
+        RebuildItemStacks(cmsEntity.GetComponent<CmsInputItemsComp>().inputStacks, recipeIngradientsContentRootTransform, recipeIngradientInstances);
+        RebuildItemStacks(cmsEntity.GetComponent<CmsOutputItemsComp>().outputStacks, recipeProductsContentRootTransform, recipeProductInstances);
 
         void RebuildItemStacks(CmsItemStack[] cmsStacks, RectTransform contentRootTransform, List<CraftRecipeIngradientContainerPrefab> instances)
         {
@@ -108,7 +108,7 @@ public class CraftUI : MonoBehaviour
                 var script = go.GetComponent<CraftRecipeIngradientContainerPrefab>();
 
                 script.itemCountText.text = stack.count.ToString();
-                script.itemIcon.sprite = stack.item.Get<CmsInventoryIconComp>().icon;
+                script.itemIcon.sprite = stack.item.GetComponent<CmsInventoryIconComp>().icon;
             
                 instances.Add(script);
             }

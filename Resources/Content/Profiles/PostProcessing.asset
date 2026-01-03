@@ -12,8 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
   m_Name: PostProcessing
   m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
-  id: 
-  components: []
+  id: PostProcessing
+  components:
+  - rid: 2352840588970164294
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 2352840588970164294
+      type: {class: CmsPostProcessingComp, ns: , asm: Assembly-CSharp}
+      data:
+        vignettePerPressureUnit: 0.075
+        chromaticAbberationPerPressureUnit: 0.05
+        lensDistortionPerPressureUnit: 0.06

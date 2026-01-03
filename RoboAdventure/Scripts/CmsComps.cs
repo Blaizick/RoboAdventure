@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class CmsSpriteComp : CmsComponent
@@ -112,4 +113,27 @@ public class CmsPostProcessingComp : CmsComponent
     public float vignettePerPressureUnit;
     public float chromaticAbberationPerPressureUnit;
     public float lensDistortionPerPressureUnit;
+}
+
+
+[Serializable]
+public class CmsPushMoveComp : CmsComponent
+{
+    public float pushCooldown;
+    public float pushDst;
+}
+
+[Serializable]
+public class CmsPushMoveSpritesComp : CmsComponent
+{
+    public Sprite idle;
+    public Sprite pushed;
+
+    public float pushDuration;
+}
+
+[Serializable]
+public class CmsRotationOffsetComp : CmsComponent
+{
+    public float rotationOffset;
 }

@@ -11,7 +11,7 @@ public class Unit : MonoBehaviour
 
     public virtual void Init()
     {
-        healthSystem = new(cmsEntity.Get<CmsHealthComp>().health);
+        healthSystem = new(cmsEntity.GetComponent<CmsHealthComp>().health);
         healthSystem.Init();
         healthSystem.onDie.AddListener(() => Destroy(gameObject));
     }
