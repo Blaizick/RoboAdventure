@@ -9,6 +9,11 @@ public class CmsEntityPfb : ScriptableObject
     [SerializeReference, SubclassSelector]
     public List<CmsComponent> components = new();
 
+    
+    /// <summary>
+    /// Warning, you may use GetCmsEntity() instead, this function is only for entities loading 
+    /// </summary>
+    /// <returns></returns>
     public CmsEntity AsCmsEntity()
     {
         Dictionary<Type, CmsComponent> compsDic = new();
@@ -17,5 +22,10 @@ public class CmsEntityPfb : ScriptableObject
             compsDic.Add(comp.GetType(), comp);
         }
         return new CmsEntity{id = id, componentsDic = compsDic};
+    }
+
+    public CmsEntity GetCmsEntity()
+    {
+        return Cms.Get(id);
     }
 }

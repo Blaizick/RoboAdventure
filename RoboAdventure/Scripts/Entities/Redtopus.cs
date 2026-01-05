@@ -10,12 +10,16 @@ public class Redtopus : Unit
 
     public SpriteRenderer spriteRenderer;
 
+    private bool m_Preshow = false;
+    
     private float m_TimeSinceLastPush;
     
     private CmsPushMoveComp m_PushMoveComp;
     private CmsPushMoveSpritesComp m_SpritesComp;
     private CmsRotationOffsetComp m_RotationOffsetComp;
     private CmsDamageComp m_DamageComp;
+    private CmsAttackPreshowComp m_AttackPreshowComp;
+    private CmsAttackShakePreshowComp m_ShakePreshowComp;
 
     public override void Init()
     {
@@ -25,7 +29,9 @@ public class Redtopus : Unit
         m_SpritesComp = cmsEntity.GetComponent<CmsPushMoveSpritesComp>();
         m_RotationOffsetComp = cmsEntity.GetComponent<CmsRotationOffsetComp>();
         m_DamageComp = cmsEntity.GetComponent<CmsDamageComp>();
-
+        m_AttackPreshowComp = cmsEntity.GetComponent<CmsAttackPreshowComp>();
+        m_ShakePreshowComp = cmsEntity.GetComponent<CmsAttackShakePreshowComp>();
+        
         base.Init();
         
         colorPunchSystem = new(.3f, Color.softRed, spriteRenderer);
@@ -61,6 +67,13 @@ public class Redtopus : Unit
                 var movDir = (target.transform.position - transform.position).normalized;
                 rb.AddForce(movDir * m_PushMoveComp.pushDst);
                 m_TimeSinceLastPush = 0;
+                m_Preshow = false;
+            }
+
+            if (m_TimeSinceLastPush > m_PushMoveComp.pushCooldown - m_AttackPreshowComp.preshowTime + m_AttackPreshowComp.preshowWhileAttackingTime && !m_Preshow)
+            {
+                m_Preshow = true;
+                transform.DOShakePosition(m_AttackPreshowComp.preshowTime, m_ShakePreshowComp.strength,m_ShakePreshowComp.vibrato, m_ShakePreshowComp.randomness, false, false, ShakeRandomnessMode.Full);
             }
         }
         m_TimeSinceLastPush += Time.deltaTime;
@@ -68,6 +81,11 @@ public class Redtopus : Unit
         colorPunchSystem._Update();
         
         base.Update();
+    }
+
+    public void OnDestroy()
+    {
+        transform.DOKill();
     }
 
     private void OnCollisionStay2D(Collision2D other)

@@ -14,8 +14,7 @@ public class ImpsMain : MonoBehaviour
     [Inject] public Inventory inventory;
     [Inject] public PostProcessing postProcessing;
     [Inject] public Modules modules;
-    
-    public List<Redtopus> enemies = new();
+    [Inject] public QuestsSystem questsSystem;
     
     public void Start()
     {
@@ -26,7 +25,8 @@ public class ImpsMain : MonoBehaviour
         ui.Init();
         energySystem.Init();
         postProcessing.Init();
-
+        questsSystem.Init();
+        
         foreach (var i in Resources.FindObjectsOfTypeAll<Redtopus>())
         {
             i.Init();
@@ -43,5 +43,6 @@ public class ImpsMain : MonoBehaviour
         ui._Update();
         energySystem._Update();
         postProcessing._Update();
+        questsSystem._Update();
     }
 }

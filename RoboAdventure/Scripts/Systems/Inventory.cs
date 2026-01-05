@@ -157,6 +157,12 @@ public class Storage
         return true;
     }
 
+
+    public int GetCount(CmsEntity item)
+    {
+        return itemsDic.TryGetValue(item, out var stack) ? stack.count : 0;
+    }
+
     public LimitedItemStack GetAt(int index)
     {
         return stacks[index];

@@ -18,6 +18,7 @@ MonoBehaviour:
   - rid: 2352840611617833032
   - rid: 2352840620928663623
   - rid: 2352840620928663624
+  - rid: 2352840648965226567
   references:
     version: 2
     RefIds:
@@ -36,3 +37,7 @@ MonoBehaviour:
     - rid: 2352840620928663624
       type: {class: CmsModuleTag, ns: , asm: Assembly-CSharp}
       data: 
+    - rid: 2352840648965226567
+      type: {class: CmsModuleTypeComp, ns: , asm: Assembly-CSharp}
+      data:
+        type: -1

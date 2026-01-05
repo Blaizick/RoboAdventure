@@ -1,6 +1,7 @@
 using System;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using Zenject;
 
@@ -45,7 +46,7 @@ public class DesktopInput
         if (actions.Player.Inventory.WasCompletedThisFrame())
             ui.SwitchInventoryVisibility();
 
-        if (actions.Player.Attack.IsPressed())
+        if (actions.Player.Attack.IsPressed() && !EventSystem.current.IsPointerOverGameObject())
         {
             if (weapons.activeWeapon != null)
             {

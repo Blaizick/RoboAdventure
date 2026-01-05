@@ -22,6 +22,7 @@ public class InstallerMain : MonoInstaller
     public HUDUI hudUI;
     public HotbarUI hotbarUI;
     public ModulesUI modulesUI;
+    public QuestsFragment questsSystem;
     public UI ui;
 
     public Weapons weapons;
@@ -30,7 +31,7 @@ public class InstallerMain : MonoInstaller
     public HotbarSlotContainerPrefab hotbarSlotPrefab;
     public InventorySlotContainerPrefab inventorySlotPrefab;
     public RectTransform dragLayer;
-
+    
     public Volume volume;
     
     public override void InstallBindings()
@@ -59,6 +60,7 @@ public class InstallerMain : MonoInstaller
         Container.Bind<InvincibilitySystem>().AsSingle().
             WithArguments(Units.player.GetComponent<CmsInvincibilityTimeComp>().invincibilityTime);
         Container.Bind<Modules>().AsSingle();
+        Container.Bind<QuestsSystem>().AsSingle();
         
         Container.Bind<PlayerUnit>().FromInstance(playerUnit).AsSingle();
         Container.Bind<Player>().AsSingle();
@@ -74,6 +76,7 @@ public class InstallerMain : MonoInstaller
         Container.Bind<EnergyUI>().FromInstance(energyUI).AsSingle();
         Container.Bind<HotbarUI>().FromInstance(hotbarUI).AsSingle();
         Container.Bind<ModulesUI>().FromInstance(modulesUI).AsSingle();
+        Container.Bind<QuestsFragment>().FromInstance(questsSystem).AsSingle();
         Container.Bind<UI>().FromInstance(ui).AsSingle();
         
         Container.Bind<DesktopInput>().AsSingle();

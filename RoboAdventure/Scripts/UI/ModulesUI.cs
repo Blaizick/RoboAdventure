@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
+[Flags]
+public enum ModuleType
+{
+    None = 0,
+    PressureResistance = 1 << 0
+}
+
 public class Modules : Storage
 {
     public PressureSystem pressureSystem;
@@ -14,12 +21,19 @@ public class Modules : Storage
 
     public void _Update()
     {
+        ModuleType usedTypes = ModuleType.None;
         foreach (var i in stacks)
         {
             if (i == null || i.item == null || !i.item.HasComponent<CmsModuleTag>()) continue;
-            if (i.item.TryGetComponent<CmsPressureResistanceComp>(out var c))
+            
+            var cmsModuleTypeComp = i.item.GetComponent<CmsModuleTypeComp>();
+            if ((usedTypes & cmsModuleTypeComp.type) == 0)
             {
-                pressureSystem.outerPressureResistance += c.pressureResistance;
+                usedTypes |= cmsModuleTypeComp.type;
+                if (i.item.TryGetComponent<CmsPressureResistanceComp>(out var c))
+                {
+                    pressureSystem.outerPressureResistance += c.pressureResistance;
+                }    
             }
         }
     }

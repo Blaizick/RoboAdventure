@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
+  m_Name: Quest0
+  m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
+  id: Quest0
+  components:
+  - rid: 2352840634639319110
+  - rid: 2352840634639319111
+  - rid: 2352840634639319112
+  references:
+    version: 2
+    RefIds:
+    - rid: 2352840634639319110
+      type: {class: CmsTargetItemsComp, ns: , asm: Assembly-CSharp}
+      data:
+        stack:
+          item: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
+          count: 2
+    - rid: 2352840634639319111
+      type: {class: CmsQuestTextComp, ns: , asm: Assembly-CSharp}
+      data:
+        text: Collect <sprite name=BlueCrystal> {QuestProgress}
+    - rid: 2352840634639319112
+      type: {class: CmsNextQuestComp, ns: , asm: Assembly-CSharp}
+      data:
+        nextQuest: {fileID: 11400000, guid: 5a7df839f688217448b486247a771ee3, type: 2}

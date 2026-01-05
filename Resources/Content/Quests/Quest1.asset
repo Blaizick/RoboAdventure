@@ -10,23 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
-  m_Name: PressureSystem
+  m_Name: Quest1
   m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
-  id: PressureSystem
+  id: Quest1
   components:
-  - rid: 2352840620928663621
-  - rid: 2352840620928663622
+  - rid: 2352840634639319110
+  - rid: 2352840634639319111
   references:
     version: 2
     RefIds:
-    - rid: 2352840620928663621
-      type: {class: CmsPressureResistanceComp, ns: , asm: Assembly-CSharp}
+    - rid: 2352840634639319110
+      type: {class: CmsTargetItemsComp, ns: , asm: Assembly-CSharp}
       data:
-        pressureResistance: 5
-    - rid: 2352840620928663622
-      type: {class: CmsPressureSystemComp, ns: , asm: Assembly-CSharp}
+        stack:
+          item: {fileID: 11400000, guid: 278f070471c23f04bb9f207c1f239778, type: 2}
+          count: 1
+    - rid: 2352840634639319111
+      type: {class: CmsQuestTextComp, ns: , asm: Assembly-CSharp}
       data:
-        deadlyPressure: 5
-        pressurePerInit: 0.2
-        damagingPressureThreshold: 1
-        pressureDamage: 1.25
+        text: Craft <sprite name=PressureResistanceModule0> {QuestProgress}

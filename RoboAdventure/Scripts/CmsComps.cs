@@ -161,3 +161,51 @@ public class CmsPressureSystemComp : CmsComponent
 
 [Serializable]
 public class CmsModuleTag : CmsComponent {}
+
+[Serializable]
+public class CmsTargesStacksComp : CmsComponent
+{
+    public CmsItemStack[] stacks;
+}
+
+[Serializable]
+public class CmsTargetItemsComp : CmsComponent
+{
+    public CmsItemStack stack;
+}
+
+[Serializable]
+public class CmsQuestTextComp : CmsComponent
+{
+    /// <summary>
+    /// {QuestProgress}
+    /// </summary>
+    public string text;
+}
+
+[Serializable]
+public class CmsNextQuestComp : CmsComponent
+{
+    public CmsEntityPfb nextQuest;
+}
+
+[Serializable]
+public class CmsAttackPreshowComp : CmsComponent
+{
+    public float preshowTime;
+    public float preshowWhileAttackingTime;
+}
+
+[Serializable]
+public class CmsAttackShakePreshowComp : CmsComponent
+{
+    public float strength;
+    public int vibrato;
+    public float randomness;
+}
+
+[Serializable]
+public class CmsModuleTypeComp : CmsComponent
+{
+    public ModuleType type;
+}

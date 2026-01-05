@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
     [Inject, NonSerialized] public HUDUI hudUI;
     [Inject, NonSerialized] public HotbarUI hotbarUI;
     [Inject, NonSerialized] public ModulesUI modulesUI;
+    [Inject, NonSerialized] public QuestsFragment questsFragment;
 
     public GameObject inventoryRoot;
     
@@ -23,6 +24,7 @@ public class UI : MonoBehaviour
         hudUI.Init();
         hotbarUI.Init();
         modulesUI.Init();
+        questsFragment.Init();
     }
 
     public void _Update()
@@ -33,6 +35,7 @@ public class UI : MonoBehaviour
         energyUI._Update();
         hudUI._Update();
         hotbarUI._Update();
+        questsFragment._Update();
     }
 
     public void SwitchInventoryVisibility()

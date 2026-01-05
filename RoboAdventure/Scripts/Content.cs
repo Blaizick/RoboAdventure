@@ -13,6 +13,7 @@ public static class Content
         CraftRecipes.Init();
         Units.Init();
         Profiles.Init();
+        Quests.Init();
     }
 }
 
@@ -98,5 +99,15 @@ public static class Profiles
     {
         postProcessing = Cms.Get("PostProcessing");
         pressureSystem = Cms.Get("PressureSystem");
+    }
+}
+
+public static class Quests
+{
+    public static CmsEntity quest0;
+
+    public static void Init()
+    {
+        quest0 = Cms.Get("Quest0");
     }
 }

@@ -20,6 +20,8 @@ MonoBehaviour:
   - rid: 2352840605698097223
   - rid: 2352840607753043968
   - rid: 2352840607753044039
+  - rid: 2352840645444632645
+  - rid: 2352840645444632646
   references:
     version: 2
     RefIds:
@@ -46,6 +48,17 @@ MonoBehaviour:
       type: {class: CmsInvincibilityTimeComp, ns: , asm: Assembly-CSharp}
       data:
         invincibilityTime: 0.25
+    - rid: 2352840645444632645
+      type: {class: CmsAttackPreshowComp, ns: , asm: Assembly-CSharp}
+      data:
+        preshowTime: 0.5
+        preshowWhileAttackingTime: 0.1
+    - rid: 2352840645444632646
+      type: {class: CmsAttackShakePreshowComp, ns: , asm: Assembly-CSharp}
+      data:
+        strength: 0.05
+        vibrato: 50
+        randomness: 100
     - rid: 5022904078131527680
       type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
       data:
