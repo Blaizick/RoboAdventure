@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Zenject;
 
 
 public class BladeWeapon : Weapon
@@ -23,6 +24,8 @@ public class BladeWeapon : Weapon
     public GameObject spriteRoot;
 
     [NonSerialized] public float attackDamage;
+    
+    [NonSerialized, Inject] public EntitiesKillCounter entitiesKillCounter;
     
     public override void Init()
     {
@@ -80,11 +83,14 @@ public class BladeWeapon : Weapon
             return;
         }
         
-        if (LayerMaskUtils.Contains(LayerMasks.enemyMask, other.gameObject.layer))
+        if (LayerMaskUtils.ContainsLayer(LayerMasks.all.enemyMask, other.gameObject.layer))
         {
             if (other.TryGetComponent<Unit>(out var unit))
             {
-                unit.healthSystem.TakeDamage(attackDamage);
+                if (unit.healthSystem.TakeDamage(attackDamage))
+                {
+                    entitiesKillCounter.Add(unit.cmsEntity);
+                }
             }
         }
     }

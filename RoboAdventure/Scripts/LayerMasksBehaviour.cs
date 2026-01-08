@@ -1,31 +1,29 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class LayerMasksBehaviour : MonoBehaviour
 {
-    public LayerMask playerMask;
-    public LayerMask enemyMask;
+    public LayerMasks layerMasks;
     
     public void Init()
     {
-        LayerMasks.Construct(playerMask, enemyMask);
+        LayerMasks.all = layerMasks;
     }
 }
 
+[Serializable]
 public class LayerMasks
 {
-    public static void Construct(LayerMask playerMask, LayerMask enemyMask)
-    {
-        LayerMasks.playerMask = playerMask;
-        LayerMasks.enemyMask = enemyMask;
-    }
+    public static LayerMasks all;
     
-    public static LayerMask playerMask;
-    public static LayerMask enemyMask;
+    public LayerMask playerMask;
+    public LayerMask enemyMask;
+    public LayerMask solidMask;
 }
 
 public class LayerMaskUtils
 {
-    public static bool Contains(LayerMask layerMask, int layer)
+    public static bool ContainsLayer(LayerMask layerMask, int layer)
     {
         return (layerMask.value & (1 << layer)) > 0;       
     }

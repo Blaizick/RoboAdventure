@@ -1,0 +1,57 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05823513aa2466b4a9ae489054fae9b8, type: 3}
+  m_Name: RockClimber
+  m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
+  id: RockClimber
+  components:
+  - rid: 2352840708461690949
+  - rid: 2352840708461690950
+  - rid: 2352840708461690951
+  - rid: 2352840708461690952
+  - rid: 2352840708461690955
+  - rid: 2352840708461690956
+  - rid: 2352840708461690961
+  references:
+    version: 2
+    RefIds:
+    - rid: 2352840708461690949
+      type: {class: CmsReloadTimeComp, ns: , asm: Assembly-CSharp}
+      data:
+        reloadTime: 1
+    - rid: 2352840708461690950
+      type: {class: CmsRotationComp, ns: , asm: Assembly-CSharp}
+      data:
+        rotationSpeed: 180
+        rotationOffset: 0
+    - rid: 2352840708461690951
+      type: {class: CmsProjectileComp, ns: , asm: Assembly-CSharp}
+      data:
+        projectile: {fileID: 11400000, guid: d28156cba7bca1f4f8be16d84d5572c8, type: 2}
+    - rid: 2352840708461690952
+      type: {class: CmsAgreRangeComp, ns: , asm: Assembly-CSharp}
+      data:
+        agreRange: 10
+    - rid: 2352840708461690955
+      type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
+      data:
+        health: 80
+    - rid: 2352840708461690956
+      type: {class: CmsInvincibilityTimeComp, ns: , asm: Assembly-CSharp}
+      data:
+        invincibilityTime: 0.5
+    - rid: 2352840708461690961
+      type: {class: CmsStepMoveComp, ns: , asm: Assembly-CSharp}
+      data:
+        stepLength: 5
+        stepDuration: 1.5
+        stepDelay: 1

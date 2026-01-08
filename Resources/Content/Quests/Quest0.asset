@@ -14,18 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
   id: Quest0
   components:
-  - rid: 2352840634639319110
+  - rid: 2352840654727675973
   - rid: 2352840634639319111
   - rid: 2352840634639319112
+  - rid: 2352840654727675978
   references:
     version: 2
     RefIds:
-    - rid: 2352840634639319110
-      type: {class: CmsTargetItemsComp, ns: , asm: Assembly-CSharp}
-      data:
-        stack:
-          item: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
-          count: 2
     - rid: 2352840634639319111
       type: {class: CmsQuestTextComp, ns: , asm: Assembly-CSharp}
       data:
@@ -34,3 +29,12 @@ MonoBehaviour:
       type: {class: CmsNextQuestComp, ns: , asm: Assembly-CSharp}
       data:
         nextQuest: {fileID: 11400000, guid: 5a7df839f688217448b486247a771ee3, type: 2}
+    - rid: 2352840654727675973
+      type: {class: CmsGetItemsQuestTag, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2352840654727675978
+      type: {class: CmsStackComp, ns: , asm: Assembly-CSharp}
+      data:
+        stack:
+          cmsEntityPfb: {fileID: 11400000, guid: 96d6e4a78a683fc40af7de70385f092d, type: 2}
+          count: 2

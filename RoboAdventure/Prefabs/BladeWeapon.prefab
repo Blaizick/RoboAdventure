@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 3628962218743980715}
   - component: {fileID: 3245982754786348288}
   m_Layer: 6
-  m_Name: Blade Weapon
+  m_Name: BladeWeapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

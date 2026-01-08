@@ -9,6 +9,7 @@ public static class InjectIds
 {
     public const string DragLayer = "DragLayer";
     public const string PostProcessingCmsEntity = "PostProcessingCmsEntity";
+    public const string WeaponsRootTransform = "WeaponsRootTransform";
 }
 
 public class InstallerMain : MonoInstaller
@@ -33,6 +34,10 @@ public class InstallerMain : MonoInstaller
     public RectTransform dragLayer;
     
     public Volume volume;
+
+    public Transform weaponsRootTransform;
+
+    public Projectile projectilePrefab;
     
     public override void InstallBindings()
     {
@@ -43,13 +48,18 @@ public class InstallerMain : MonoInstaller
         Container.Bind<RectTransform>().WithId(InjectIds.DragLayer).FromInstance(dragLayer).AsSingle();
         Container.BindIFactory<StorageItemStackReference, RectTransform, InventorySlotContainerPrefab>().FromFactory<StorageSlotUIFactory>();
         Container.BindIFactory<StorageItemStackReference, RectTransform, HotbarSlotContainerPrefab>().FromFactory<HotbarSlotUIFactory>();
+
+        Container.Bind<Projectile>().FromInstance(projectilePrefab).AsSingle();
+        Container.BindFactory<Projectile, Projectile.Factory>().FromComponentInNewPrefab(projectilePrefab).AsSingle();
         
         Container.Bind<LocationCollectables>().FromInstance(locationCollectables).AsSingle();
-
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
-        
+
+        Container.Bind<Transform>().WithId(InjectIds.WeaponsRootTransform).FromInstance(weaponsRootTransform).AsSingle();
+        Container.BindIFactory<CmsEntity, WeaponContainerPrefab>().FromFactory<Weapons.WeaponsFactory>();
+        Container.Bind<EntitiesKillCounter>().AsSingle();
         Container.Bind<Weapons>().FromInstance(weapons).AsSingle();
-        Container.Bind<HealthSystem>().AsSingle().
+        Container.Bind<HealthSystem>().FromInstance(new HealthSystem(Units.player)).AsSingle().
             WithArguments(Units.player.GetComponent<CmsHealthComp>().health);
         Container.Bind<PressureSystem>().AsSingle();
         Container.Bind<AbsorbStorage>().AsSingle();

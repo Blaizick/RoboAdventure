@@ -13,7 +13,7 @@ public class Unit : MonoBehaviour
     
     public virtual void Init()
     {
-        healthSystem = new(cmsEntity.GetComponent<CmsHealthComp>().health);
+        healthSystem = new(cmsEntity);
         healthSystem.Init();
         invincibilitySystem = new(healthSystem, cmsEntity.GetComponent<CmsInvincibilityTimeComp>().invincibilityTime);
         invincibilitySystem.Init();
@@ -24,6 +24,10 @@ public class Unit : MonoBehaviour
     {
         invincibilitySystem._Update();
         healthSystem._Update();
+        UpdateDestroy();
     }
-    public virtual void Destroy() {}
+
+    public virtual void OnDestroy() {}
+
+    public virtual void UpdateDestroy() {}
 }

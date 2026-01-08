@@ -6,10 +6,17 @@ public static class MathUtils
     {
         return Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
     }
-
+    public static float GetLookAtDegrees(in Vector2 a, in Vector2 b)
+    {
+        return GetLookAtDegrees(b - a);
+    }
     public static Quaternion GetLookAtRotation(in Vector2 dir)
     {
         return Quaternion.Euler(0f, 0f, GetLookAtDegrees(dir));
+    }
+    public static Quaternion GetLookAtRotation(in Vector2 a, in Vector2 b)
+    {
+        return GetLookAtRotation(b - a);
     }
 
 

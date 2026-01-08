@@ -83,14 +83,16 @@ public class Redtopus : Unit
         base.Update();
     }
 
-    public void OnDestroy()
+    public override void OnDestroy()
     {
         transform.DOKill();
+
+        base.OnDestroy();
     }
 
     private void OnCollisionStay2D(Collision2D other)
     {
-        if (LayerMaskUtils.Contains(LayerMasks.playerMask, other.gameObject.layer))
+        if (LayerMaskUtils.ContainsLayer(LayerMasks.all.playerMask, other.gameObject.layer))
         {
             if(other.gameObject.TryGetComponent<PlayerUnit>(out var u))
             {

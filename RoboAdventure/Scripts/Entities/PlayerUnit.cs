@@ -98,8 +98,8 @@ public class PlayerUnit : Unit
         {
             transform.rotation = Quaternion.Euler(0.0f, transform.eulerAngles.y + 180.0f, 0.0f);
             m_LookingRight = !m_LookingRight;
-            weapons.SetLookingRight(m_LookingRight);
         }
+        weapons.SetLookingRight(m_LookingRight);
     }
     
     public void ProgressCollection(bool collection)

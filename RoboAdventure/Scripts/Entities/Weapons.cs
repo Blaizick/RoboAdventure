@@ -11,18 +11,19 @@ public class Weapons : MonoBehaviour, IInitializable
     [NonSerialized] public List<WeaponContainerPrefab> weapons = new();
 
     [NonSerialized] public Weapon activeWeapon;
-    
+
     public Transform weaponsRootTransform;
+
+    [Inject] public IFactory<CmsEntity, WeaponContainerPrefab> weaponsFactory;
     
     public void Initialize()
     {
-        
+
     }
 
-    public Weapon Create(GameObject prefab)
+    public Weapon Create(CmsEntity cmsEntity)
     {
-        var go = Instantiate(prefab, weaponsRootTransform);
-        var script = go.GetComponent<WeaponContainerPrefab>();
+        var script = weaponsFactory.Create(cmsEntity);
         script.weapon.Init();
         weapons.Add(script);
         return script.weapon;
@@ -47,4 +48,22 @@ public class Weapons : MonoBehaviour, IInitializable
             i.weapon.lookingRight = lookingRight;
         }
     }
+
+    public class WeaponsFactory : IFactory<CmsEntity, WeaponContainerPrefab>
+    {
+        public DiContainer container;
+        public Transform transform;
+
+        public WeaponsFactory(DiContainer container, [Inject(Id = InjectIds.WeaponsRootTransform)]Transform transform)
+        {
+            this.container = container;
+            this.transform = transform;
+        }
+        
+        public WeaponContainerPrefab Create(CmsEntity cmsEntity)
+        {
+            return container.InstantiatePrefab(cmsEntity.GetComponent<CmsPrefabComp>().prefab, transform).GetComponent<WeaponContainerPrefab>();
+        }
+    }
+
 }

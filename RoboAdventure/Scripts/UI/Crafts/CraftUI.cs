@@ -95,7 +95,7 @@ public class CraftUI : MonoBehaviour
         RebuildItemStacks(cmsEntity.GetComponent<CmsInputItemsComp>().inputStacks, recipeIngradientsContentRootTransform, recipeIngradientInstances);
         RebuildItemStacks(cmsEntity.GetComponent<CmsOutputItemsComp>().outputStacks, recipeProductsContentRootTransform, recipeProductInstances);
 
-        void RebuildItemStacks(CmsItemStack[] cmsStacks, RectTransform contentRootTransform, List<CraftRecipeIngradientContainerPrefab> instances)
+        void RebuildItemStacks(CmsStack[] cmsStacks, RectTransform contentRootTransform, List<CraftRecipeIngradientContainerPrefab> instances)
         {
             instances.ForEach(i => GameObject.Destroy(i.gameObject));
             instances.Clear();

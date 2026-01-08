@@ -2,14 +2,14 @@
 using UnityEngine;
 
 [Serializable]
-public class CmsItemStack
+public class CmsStack
 {
-    public CmsEntityPfb item;
+    public CmsEntityPfb cmsEntityPfb;
     public int count;
     
     public ItemStack AsItemStack()
     {
-        CmsEntity item = Cms.Get(this.item.id);
+        CmsEntity item = Cms.Get(this.cmsEntityPfb.id);
         return new ItemStack(item, count);
     }
 }

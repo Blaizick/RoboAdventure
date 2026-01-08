@@ -14,18 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CmsEntityPfb
   id: Quest1
   components:
-  - rid: 2352840634639319110
+  - rid: 2352840654727675974
   - rid: 2352840634639319111
+  - rid: 2352840654727675975
+  - rid: 2352840654727675977
   references:
     version: 2
     RefIds:
-    - rid: 2352840634639319110
-      type: {class: CmsTargetItemsComp, ns: , asm: Assembly-CSharp}
-      data:
-        stack:
-          item: {fileID: 11400000, guid: 278f070471c23f04bb9f207c1f239778, type: 2}
-          count: 1
     - rid: 2352840634639319111
       type: {class: CmsQuestTextComp, ns: , asm: Assembly-CSharp}
       data:
         text: Craft <sprite name=PressureResistanceModule0> {QuestProgress}
+    - rid: 2352840654727675974
+      type: {class: CmsGetItemsQuestTag, ns: , asm: Assembly-CSharp}
+      data: 
+    - rid: 2352840654727675975
+      type: {class: CmsStackComp, ns: , asm: Assembly-CSharp}
+      data:
+        stack:
+          cmsEntityPfb: {fileID: 11400000, guid: 278f070471c23f04bb9f207c1f239778, type: 2}
+          count: 1
+    - rid: 2352840654727675977
+      type: {class: CmsNextQuestComp, ns: , asm: Assembly-CSharp}
+      data:
+        nextQuest: {fileID: 11400000, guid: dabccfed9a5784a489ed1df263ab85df, type: 2}

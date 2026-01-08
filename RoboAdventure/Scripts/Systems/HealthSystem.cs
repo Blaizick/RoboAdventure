@@ -6,6 +6,8 @@ using Zenject;
 
 public class HealthSystem
 {
+    public CmsEntity cmsEntity;
+    
     private float m_Health;
     private float m_MaxHealth;
 
@@ -18,16 +20,10 @@ public class HealthSystem
     private bool m_CanTakeDamage = true;
     public bool CanTakeDamage {get => m_CanTakeDamage; set => m_CanTakeDamage = value;}
     
-    public HealthSystem(float maxHealth)
+    public HealthSystem(CmsEntity cmsEntity)
     {
-        m_MaxHealth = maxHealth;
-        m_Health = maxHealth;
-    }
-
-    public void Construct(float maxHealth)
-    {
-        m_MaxHealth = maxHealth;
-        m_Health = maxHealth;
+        m_MaxHealth = cmsEntity.GetComponent<CmsHealthComp>().health;
+        m_Health = m_MaxHealth;
     }
     
     public virtual void Init()
@@ -40,22 +36,27 @@ public class HealthSystem
         
     }
 
-    public virtual void TakeDamage(float damage, bool force = false)
+    /// <summary>
+    /// Takes damage and returns whether entity is alive or not
+    /// </summary>
+    /// <param name="damage"></param>
+    /// <param name="force"></param>
+    /// <returns></returns>
+    public virtual bool TakeDamage(float damage, bool force = false)
     {
         if (!force && !m_CanTakeDamage)
         {
-            return;
+            return false;
         }
         m_Health -= damage;
         if (m_Health <= 0)
         {
             m_Health = 0;
             onDie?.Invoke();
+            return true;
         }
-        else
-        {
-            onDamaged?.Invoke();
-        }
+        onDamaged?.Invoke();
+        return false;
     }
 
     public virtual void Heal(float heal)
@@ -66,6 +67,8 @@ public class HealthSystem
             m_Health = m_MaxHealth;
         }
     }
+
+    public class Factory : PlaceholderFactory<CmsEntity, HealthSystem> {}
 }
 
 public class InvincibilitySystem
@@ -147,5 +150,15 @@ public class ColorPunchSystem
     {
         punch = true;
         curTime = 0;
+    }
+}
+
+public class UnitDieData
+{
+    public CmsEntity cmsEntity;
+
+    public UnitDieData(CmsEntity cmsEntity)
+    {
+        this.cmsEntity = cmsEntity;
     }
 }

@@ -14,6 +14,7 @@ public static class Content
         Units.Init();
         Profiles.Init();
         Quests.Init();
+        Projectiles.Init(); 
     }
 }
 
@@ -70,10 +71,28 @@ public static class WeaponsContent
     }
 }
 
+public static class Projectiles
+{
+    public static CmsEntity projectile;
+
+    public static List<CmsEntity> all;
+    
+    public static void Init()
+    {
+        projectile = Cms.Get("Projectile");
+        
+        all = new()
+        {
+            projectile
+        };
+    }
+}
+
 public static class Units
 {
     public static CmsEntity redtopus;
     public static CmsEntity player;
+    public static CmsEntity rockClimber;
     
     public static List<CmsEntity> all;
 
@@ -81,11 +100,13 @@ public static class Units
     {
         redtopus = Cms.Get("Redtopus");
         player = Cms.Get("Player");
-
+        rockClimber = Cms.Get("RockClimber");
+        
         all = new()
         {
             redtopus,
-            player
+            player,
+            rockClimber
         };
     }
 }

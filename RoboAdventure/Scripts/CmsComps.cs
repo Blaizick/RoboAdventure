@@ -36,13 +36,13 @@ public class CmsCollectionRangeComp : CmsComponent
 [Serializable]
 public class CmsInputItemsComp : CmsComponent
 {
-    public CmsItemStack[] inputStacks;
+    public CmsStack[] inputStacks;
 }
 
 [Serializable]
 public class CmsOutputItemsComp : CmsComponent
 {
-    public CmsItemStack[] outputStacks;
+    public CmsStack[] outputStacks;
 }
 
 [Serializable]
@@ -165,13 +165,13 @@ public class CmsModuleTag : CmsComponent {}
 [Serializable]
 public class CmsTargesStacksComp : CmsComponent
 {
-    public CmsItemStack[] stacks;
+    public CmsStack[] stacks;
 }
 
 [Serializable]
-public class CmsTargetItemsComp : CmsComponent
+public class CmsStackComp : CmsComponent
 {
-    public CmsItemStack stack;
+    public CmsStack stack;
 }
 
 [Serializable]
@@ -208,4 +208,53 @@ public class CmsAttackShakePreshowComp : CmsComponent
 public class CmsModuleTypeComp : CmsComponent
 {
     public ModuleType type;
+}
+
+[Serializable]
+public class CmsGetItemsQuestTag : CmsComponent {}
+
+[Serializable]
+public class CmsEquipModuleQuestTag : CmsComponent {}
+
+[Serializable]
+public class CmsKillEntitiesQuestTag : CmsComponent {}
+
+[Serializable]
+public class CmsAttackReloadComp : CmsComponent
+{
+    public float reload;
+}
+
+[Serializable]
+public class CmsAgreRangeComp : CmsComponent
+{
+    public float agreRange;
+}
+
+[Serializable]
+public class CmsRotationComp : CmsComponent
+{
+    public float rotationSpeed;
+    public float rotationOffset;
+}
+
+[Serializable]
+public class CmsProjectileComp : CmsComponent
+{
+    public CmsEntityPfb projectile;
+}
+
+[Serializable]
+public class CmsLifetimeComp : CmsComponent
+{
+    public float lifetime;
+}
+
+[Serializable]
+public class CmsStepMoveComp : CmsComponent
+{
+    public float stepLength;
+    public float stepDuration;
+    public float stepDelay;
+    public float randomness;
 }

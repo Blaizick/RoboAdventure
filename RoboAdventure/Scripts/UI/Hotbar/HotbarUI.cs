@@ -36,9 +36,9 @@ public class Hotbar : Storage
         activeSlot = id;
         
         weapons.RemoveWeapons();
-        if (stacks[id] != null && stacks[id].item.TryGetComponent<CmsPrefabComp>(out var prefabComp))
+        if (stacks[id] != null && stacks[id].item.HasComponent<CmsPrefabComp>())
         {
-            weapons.SetActiveWeapon(weapons.Create(prefabComp.prefab));
+            weapons.SetActiveWeapon(weapons.Create(stacks[id].item));
         }
     }
 

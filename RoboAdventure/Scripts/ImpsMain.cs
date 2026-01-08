@@ -27,8 +27,9 @@ public class ImpsMain : MonoBehaviour
         postProcessing.Init();
         questsSystem.Init();
         
-        foreach (var i in Resources.FindObjectsOfTypeAll<Redtopus>())
+        foreach (var i in Resources.FindObjectsOfTypeAll<Unit>())
         {
+            if (i is PlayerUnit) continue;
             i.Init();
         }
         
