@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3865985716569844812}
   - component: {fileID: 8769961150184288529}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Outline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -77,8 +77,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1237961131
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -250887757, guid: 195fcd6b341b3bd41b410b9c68cef986, type: 3}
@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8920789353992768195}
   - component: {fileID: 3987789042414609333}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Fins
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -168,8 +168,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1237961131
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 1731917836, guid: 195fcd6b341b3bd41b410b9c68cef986, type: 3}
@@ -192,7 +192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4842737963252613793}
   - component: {fileID: 4018690770537118367}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -259,8 +259,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1237961131
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: -495944386, guid: 195fcd6b341b3bd41b410b9c68cef986, type: 3}
@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 3031128441719580327}
   - component: {fileID: 8863994879513290336}
   - component: {fileID: 801644039278182044}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RockClimber
   m_TagString: Untagged
   m_Icon: {fileID: 0}

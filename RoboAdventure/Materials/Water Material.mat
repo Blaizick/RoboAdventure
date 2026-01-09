@@ -69,10 +69,10 @@ Material:
     - _EnableExternalAlpha: 0
     - _ZWrite: 0
     - _distanceFactor: 0.1
-    - _fadeOffMax: 1
-    - _fadeOffMin: 0.6
-    - _fadeOffSmoothness: 0.01
-    - _fadeOffStart: 0.5
+    - _fadeOffMax: 0.4
+    - _fadeOffMin: 0.3
+    - _fadeOffSmoothness: 0.005
+    - _fadeOffStart: 12.32
     - _fogDistanceFactor: 0.1
     - _fogFactor: 0.075
     - _fogNoiseFactor: 0.03
@@ -86,6 +86,6 @@ Material:
     - _baseColor: {r: 0.13389996, g: 0.23852961, b: 0.5566038, a: 0.45490196}
     - _fogNoiseSpeed: {r: 0.25, g: 0, b: 0, a: 0}
     - _fogSpeed: {r: 0.01, g: 0.01, b: 0, a: 0}
-    - _playerPosition: {r: 15.59077, g: -0.15329546, b: 0, a: 0}
+    - _playerPosition: {r: 39.66626, g: -97.045456, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
