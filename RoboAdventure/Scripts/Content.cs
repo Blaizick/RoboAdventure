@@ -93,6 +93,7 @@ public static class Units
     public static CmsEntity redtopus;
     public static CmsEntity player;
     public static CmsEntity rockClimber;
+    public static CmsEntity redtopusLord;
     
     public static List<CmsEntity> all;
 
@@ -101,12 +102,14 @@ public static class Units
         redtopus = Cms.Get("Redtopus");
         player = Cms.Get("Player");
         rockClimber = Cms.Get("RockClimber");
+        redtopusLord = Cms.Get("RedtopusLord");
         
         all = new()
         {
             redtopus,
             player,
-            rockClimber
+            rockClimber,
+            redtopusLord,
         };
     }
 }

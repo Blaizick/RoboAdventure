@@ -10,6 +10,11 @@ public class Hotbar : Storage
     private float m_Scrolled = 0;
 
     public Weapons weapons;
+
+    public void Init()
+    {
+        Add(WeaponsContent.blade);
+    }
     
     public Hotbar(Weapons weapons) : base(5)
     {

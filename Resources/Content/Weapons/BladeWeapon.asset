@@ -38,7 +38,7 @@ MonoBehaviour:
     - rid: 5022904078131527943
       type: {class: CmsInventoryIconComp, ns: , asm: Assembly-CSharp}
       data:
-        icon: {fileID: -3120227408865008824, guid: 7ec7d5a99d6add649ad7390a541e86f0, type: 3}
+        icon: {fileID: 391923518, guid: 8419c3d8ef3b4374d89eb8dffd892e24, type: 3}
     - rid: 5022904081886216261
       type: {class: CmsMaxItemsInStackComp, ns: , asm: Assembly-CSharp}
       data:

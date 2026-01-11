@@ -1,9 +1,6 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 using Zenject;
-using Zenject.SpaceFighter;
 
 public static class InjectIds
 {
@@ -55,6 +52,8 @@ public class InstallerMain : MonoInstaller
         Container.Bind<LocationCollectables>().FromInstance(locationCollectables).AsSingle();
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();
 
+        Container.BindFactory<CmsEntity, Unit, Unit.Factory>().FromFactory<Unit.CustomFactory>();
+        
         Container.Bind<Transform>().WithId(InjectIds.WeaponsRootTransform).FromInstance(weaponsRootTransform).AsSingle();
         Container.BindIFactory<CmsEntity, WeaponContainerPrefab>().FromFactory<Weapons.WeaponsFactory>();
         Container.Bind<EntitiesKillCounter>().AsSingle();

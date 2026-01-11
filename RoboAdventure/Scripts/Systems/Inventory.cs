@@ -207,7 +207,7 @@ public class StorageItemStackReference
     }
 }
 
-public class Inventory : Storage, IInitializable
+public class Inventory : Storage
 {
     public const int InventorySize = 10;
 
@@ -216,8 +216,8 @@ public class Inventory : Storage, IInitializable
         
     }
 
-    public void Initialize()
+    public void Init()
     {
-        Add(WeaponsContent.blade);
+        // Add(WeaponsContent.blade);
     }
 }

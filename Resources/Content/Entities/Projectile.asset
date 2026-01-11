@@ -17,6 +17,7 @@ MonoBehaviour:
   - rid: 2352840708461690954
   - rid: 2352840708461690953
   - rid: 2352840708461690960
+  - rid: 2352840747056103493
   references:
     version: 2
     RefIds:
@@ -32,3 +33,8 @@ MonoBehaviour:
       type: {class: CmsLifetimeComp, ns: , asm: Assembly-CSharp}
       data:
         lifetime: 15
+    - rid: 2352840747056103493
+      type: {class: CmsAttackPreshowComp, ns: , asm: Assembly-CSharp}
+      data:
+        preshowTime: 0
+        preshowWhileAttackingTime: 0

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 
 public class Unit : MonoBehaviour
 {
@@ -24,10 +25,31 @@ public class Unit : MonoBehaviour
     {
         invincibilitySystem._Update();
         healthSystem._Update();
-        UpdateDestroy();
     }
 
     public virtual void OnDestroy() {}
 
-    public virtual void UpdateDestroy() {}
+    public class Factory : PlaceholderFactory<CmsEntity, Unit> {}
+
+    public class CustomFactory : IFactory<CmsEntity, Unit>
+    {
+        public DiContainer container;
+
+        public CustomFactory(DiContainer container)
+        {
+            this.container = container;
+        }
+        
+        public Unit Create(CmsEntity cmsEntity)
+        {
+            return container.InstantiatePrefabForComponent<Unit>(cmsEntity.GetComponent<CmsUnitPrefabComp>().unitPrefab);
+        }
+    }
+}
+
+
+public class Enemy : Unit
+{
+    [Inject, NonSerialized] public PlayerUnit player;
+    [NonSerialized] public Unit target;
 }

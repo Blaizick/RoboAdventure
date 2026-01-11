@@ -258,3 +258,17 @@ public class CmsStepMoveComp : CmsComponent
     public float stepDelay;
     public float randomness;
 }
+
+[Serializable]
+public class CmsUnitPrefabComp : CmsComponent
+{
+    public Unit unitPrefab;
+}
+
+[Serializable]
+public class CmsUnitRespawnSpotComp : CmsComponent
+{
+    public float respawnTime;
+    public bool spawnOnInit = true;
+    public CmsEntityPfb entity;
+}

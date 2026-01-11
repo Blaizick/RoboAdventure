@@ -15,6 +15,8 @@ public class ImpsMain : MonoBehaviour
     [Inject] public PostProcessing postProcessing;
     [Inject] public Modules modules;
     [Inject] public QuestsSystem questsSystem;
+    [Inject] public Hotbar hotbar;
+    
     
     public void Start()
     {
@@ -26,14 +28,19 @@ public class ImpsMain : MonoBehaviour
         energySystem.Init();
         postProcessing.Init();
         questsSystem.Init();
+        inventory.Init();
+        hotbar.Init();
         
         foreach (var i in Resources.FindObjectsOfTypeAll<Unit>())
         {
             if (i is PlayerUnit) continue;
             i.Init();
         }
-        
-        inventory.Add(WeaponsContent.blade);
+
+        foreach (var i in Resources.FindObjectsOfTypeAll<UnitRespawnSpot>())
+        {
+            i.Init();
+        }
     }
     public void Update()
     {

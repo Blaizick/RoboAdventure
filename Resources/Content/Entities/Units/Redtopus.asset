@@ -22,6 +22,7 @@ MonoBehaviour:
   - rid: 2352840607753044039
   - rid: 2352840645444632645
   - rid: 2352840645444632646
+  - rid: 2352840772901404745
   references:
     version: 2
     RefIds:
@@ -59,6 +60,10 @@ MonoBehaviour:
         strength: 0.05
         vibrato: 50
         randomness: 100
+    - rid: 2352840772901404745
+      type: {class: CmsUnitPrefabComp, ns: , asm: Assembly-CSharp}
+      data:
+        unitPrefab: {fileID: 2635637246579162350, guid: 3e4312b4f571a84459645c5a23e78dbe, type: 3}
     - rid: 5022904078131527680
       type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
       data:

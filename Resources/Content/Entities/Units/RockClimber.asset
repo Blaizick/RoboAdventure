@@ -21,13 +21,15 @@ MonoBehaviour:
   - rid: 2352840708461690955
   - rid: 2352840708461690956
   - rid: 2352840708461690961
+  - rid: 2352840747056103494
+  - rid: 2352840747056103495
   references:
     version: 2
     RefIds:
     - rid: 2352840708461690949
       type: {class: CmsReloadTimeComp, ns: , asm: Assembly-CSharp}
       data:
-        reloadTime: 1
+        reloadTime: 1.3
     - rid: 2352840708461690950
       type: {class: CmsRotationComp, ns: , asm: Assembly-CSharp}
       data:
@@ -55,3 +57,15 @@ MonoBehaviour:
         stepLength: 5
         stepDuration: 1.5
         stepDelay: 1
+        randomness: 30
+    - rid: 2352840747056103494
+      type: {class: CmsAttackPreshowComp, ns: , asm: Assembly-CSharp}
+      data:
+        preshowTime: 1
+        preshowWhileAttackingTime: 0
+    - rid: 2352840747056103495
+      type: {class: CmsAttackShakePreshowComp, ns: , asm: Assembly-CSharp}
+      data:
+        strength: 0.05
+        vibrato: 50
+        randomness: 100
