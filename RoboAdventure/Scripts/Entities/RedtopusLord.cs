@@ -33,20 +33,20 @@ public class AttackType
     }
 }
 [Serializable]
-public class DashAttackType : AttackType
+public class HorizontalDashAttackType : AttackType
 {
-    public override Type Type => typeof(DashAttack);
+    public override Type Type => typeof(HorizontalDashAttack);
 
     public float preparationTime;
     public float preparationDst;
 
-    public float dashDst;
     public float dashTime;
+    public float dashDst;
 }
 [Serializable]
-public class HorizontalDashAttackType : AttackType
+public class DashAttackType : AttackType
 {
-    public override Type Type => typeof(HorizontalDashAttack);
+    public override Type Type => typeof(DashAttack);
     
     public float randomness;
     public float duration;
@@ -64,18 +64,19 @@ public class Attack
     }
     public virtual void OnUnitDestroy() {}
 }
-public class DashAttack : Attack
+public class HorizontalDashAttack : Attack
 {
-    public DashAttackType DashAttackType => (DashAttackType)attackType;
+    public HorizontalDashAttackType HorizontalDashAttackType => (HorizontalDashAttackType)attackType;
 
     public override IEnumerator InitCoroutine()
     {
+        float sideFactor = Random.Range(0, 1) == 0 ? -1 : 1;
         {
-            var pos = new Vector2(unit.target.transform.position.x - DashAttackType.preparationDst, unit.target.transform.position.y);
-            var mov = (pos - (Vector2)unit.transform.position) / DashAttackType.preparationTime;
+            var pos = new Vector2(unit.target.transform.position.x + (sideFactor * HorizontalDashAttackType.preparationDst), unit.target.transform.position.y);
+            var mov = (pos - (Vector2)unit.transform.position) / HorizontalDashAttackType.preparationTime;
         
             float startTime = Time.time;
-            while (Time.time - startTime < DashAttackType.preparationTime)
+            while (Time.time - startTime < HorizontalDashAttackType.preparationTime)
             {
                 unit.rb.linearVelocity = mov;
             
@@ -84,10 +85,10 @@ public class DashAttack : Attack
         }
         {
             float dir = unit.target.transform.position.x - unit.transform.position.x;
-            float movX = dir / Mathf.Abs(dir) * DashAttackType.dashDst / DashAttackType.dashTime;
+            float movX = dir / Mathf.Abs(dir) * HorizontalDashAttackType.dashDst / HorizontalDashAttackType.dashTime;
             
             float startTime = Time.time;
-            while (Time.time - startTime < DashAttackType.dashTime)
+            while (Time.time - startTime < HorizontalDashAttackType.dashTime)
             {
                 unit.rb.linearVelocity = new Vector2(movX, 0);
                 
@@ -98,20 +99,20 @@ public class DashAttack : Attack
         unit.rb.linearVelocity = Vector2.zero;
     }
 }
-public class HorizontalDashAttack : Attack
+public class DashAttack : Attack
 {
-    public HorizontalDashAttackType HorizontalDashAttackType => (HorizontalDashAttackType)attackType;
+    public DashAttackType DashAttackType => (DashAttackType)attackType;
 
     public override IEnumerator InitCoroutine()
     {
         Vector2 dir = (unit.target.transform.position - unit.transform.position).normalized;
-        float hr = HorizontalDashAttackType.randomness * 0.5f;
+        float hr = DashAttackType.randomness * 0.5f;
         dir = MathUtils.RotateDirection(dir, Random.Range(-hr, hr));
-        var spd = HorizontalDashAttackType.length / HorizontalDashAttackType.duration;
+        var spd = DashAttackType.length / DashAttackType.duration;
         var mov = dir * spd;
         
         float startTime = Time.time;
-        while (Time.time - startTime < HorizontalDashAttackType.duration)
+        while (Time.time - startTime < DashAttackType.duration)
         {
             unit.rb.linearVelocity = mov;
             yield return null;
@@ -121,10 +122,51 @@ public class HorizontalDashAttack : Attack
     }
 }
 
+[Serializable]
+public class DashComboAttackType : AttackType
+{
+    public override Type Type => typeof(DashComboAttack);
+
+    public int dashesCount;
+    public float dashLength;
+    public float dashDuration;
+    public float delayBtwDashes;
+    public float dashRandomness;
+}
+
+public class DashComboAttack : Attack
+{
+    public DashComboAttackType DashComboAttackType => (DashComboAttackType)attackType;
+    
+    public override IEnumerator InitCoroutine()
+    {
+        for (int i = 0; i < DashComboAttackType.dashesCount; i++)
+        {
+            Vector2 dir = (unit.target.transform.position - unit.transform.position).normalized;
+            float hr = DashComboAttackType.dashRandomness * 0.5f;
+            dir = MathUtils.RotateDirection(dir, Random.Range(-hr, hr));
+            var spd = DashComboAttackType.dashLength / DashComboAttackType.dashDuration;
+            var mov = dir * spd;
+        
+            float startTime = Time.time;
+            while (Time.time - startTime < DashComboAttackType.dashDuration)
+            {
+                unit.rb.linearVelocity = mov;
+                yield return null;
+            }
+
+            unit.rb.linearVelocity = Vector2.zero;
+
+            yield return new WaitForSeconds(DashComboAttackType.delayBtwDashes);
+        }
+    }
+}
+
 public class RedtopusLord : Enemy
 {
     public Attack curAttack;
     private CmsPhasesComp m_PhasesComp;
+    private CmsDamageComp m_DamageComp;
     [NonSerialized] public Phase curPhase;
     
     public override void Init()
@@ -132,11 +174,15 @@ public class RedtopusLord : Enemy
         cmsEntity = Units.redtopusLord;
         
         m_PhasesComp = cmsEntity.GetComponent<CmsPhasesComp>();
-
+        m_DamageComp = cmsEntity.GetComponent<CmsDamageComp>();
+        
         base.Init();
 
         target = player;
-        StartCoroutine(LifecycleCoroutine());
+        if (gameObject.activeInHierarchy)
+        {
+            StartCoroutine(LifecycleCoroutine());
+        }
     }
 
     public override void OnDestroy()
@@ -163,6 +209,14 @@ public class RedtopusLord : Enemy
             yield return curAttack.InitCoroutine();
 
             yield return new WaitForSeconds(curPhase.delayBtwAttacks);
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out Unit u) && LayerMaskUtils.ContainsLayer(enemyMask, collision.gameObject.layer))
+        {
+            u.healthSystem.TakeDamage(m_DamageComp.damage);
         }
     }
 }

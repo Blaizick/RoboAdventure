@@ -46,8 +46,8 @@ public class InstallerMain : MonoInstaller
         Container.BindIFactory<StorageItemStackReference, RectTransform, InventorySlotContainerPrefab>().FromFactory<StorageSlotUIFactory>();
         Container.BindIFactory<StorageItemStackReference, RectTransform, HotbarSlotContainerPrefab>().FromFactory<HotbarSlotUIFactory>();
 
-        Container.Bind<Projectile>().FromInstance(projectilePrefab).AsSingle();
-        Container.BindFactory<Projectile, Projectile.Factory>().FromComponentInNewPrefab(projectilePrefab).AsSingle();
+        // Container.Bind<Projectile>().FromInstance(projectilePrefab).AsSingle();
+        Container.BindFactory<CmsEntity, LayerMask, Projectile, Projectile.Factory>().FromFactory<Projectile.IFactory>();
         
         Container.Bind<LocationCollectables>().FromInstance(locationCollectables).AsSingle();
         Container.Bind<LayerMasksBehaviour>().FromInstance(layerMasksBehaviour).AsSingle();

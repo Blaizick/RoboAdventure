@@ -9,12 +9,8 @@ public class BladeWeapon : Weapon
     [NonSerialized] public float curAttackTime;
     [NonSerialized] public float attackTime;
 
-    [NonSerialized] public bool reloaded = true;
-    [NonSerialized] public float curReloadTime;
-    [NonSerialized] public float reloadTime;
+    [NonSerialized] public CmsReloadTimeComp reloadTimeComp;
     
-    [NonSerialized] public CmsEntity cmsEntity;
-
     public Transform rotateRoot;
 
     public float startRotation;
@@ -26,38 +22,40 @@ public class BladeWeapon : Weapon
     [NonSerialized] public float attackDamage;
     
     [NonSerialized, Inject] public EntitiesKillCounter entitiesKillCounter;
+
+    public ReloadSystem reloadSystem;
     
     public override void Init()
     {
         cmsEntity = WeaponsContent.blade;
-        
-        reloadTime = cmsEntity.GetComponent<CmsReloadTimeComp>().reloadTime;
+
+        reloadTimeComp = cmsEntity.GetComponent<CmsReloadTimeComp>();
+
         attackTime = cmsEntity.GetComponent<CmsAttackTimeComp>().attackTime;
         attackDamage = cmsEntity.GetComponent<CmsDamageComp>().damage;
+
+        reloadSystem = new(reloadTimeComp);
     }
 
     public void Update()
     {
-        if (!reloaded && curReloadTime > reloadTime)
-        {
-            reloaded = true;
-        }
-        curReloadTime += Time.deltaTime;
-
+        reloadSystem.Update();
+        
         if (attacking)
         {
             curAttackTime += Time.deltaTime;
             
             float endRotation = lookingRight ? this.endRotation : backwardEndRotation;
             rotateRoot.transform.rotation = Quaternion.Euler(0, 0, Mathf.Lerp(startRotation, endRotation, curAttackTime / attackTime));
-            
+
             if (curAttackTime > attackTime)
             {
                 attacking = false;
-                reloaded = false;
+                reloadSystem.Reset();
                 rotateRoot.rotation = Quaternion.Euler(0, 0, 0);
             }
         }
+        
         
         spriteRoot.SetActive(attacking);
     }
@@ -65,7 +63,7 @@ public class BladeWeapon : Weapon
 
     public override void Use()
     {
-        if (reloaded && !attacking)
+        if (reloadSystem.IsReloaded() && !attacking)
         {
             AttackUnchecked();
         }
@@ -85,12 +83,9 @@ public class BladeWeapon : Weapon
         
         if (LayerMaskUtils.ContainsLayer(LayerMasks.all.enemyMask, other.gameObject.layer))
         {
-            if (other.TryGetComponent<Unit>(out var unit))
+            if (other.TryGetComponent<Unit>(out var unit) && unit.healthSystem.TakeDamage(attackDamage))
             {
-                if (unit.healthSystem.TakeDamage(attackDamage))
-                {
-                    entitiesKillCounter.Add(unit.cmsEntity);
-                }
+                entitiesKillCounter.Add(unit.cmsEntity);
             }
         }
     }

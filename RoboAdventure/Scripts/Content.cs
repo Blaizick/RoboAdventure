@@ -57,33 +57,36 @@ public static class CraftRecipes
 public static class WeaponsContent
 {
     public static CmsEntity blade;
+    public static CmsEntity bow;
     
     public static List<CmsEntity> all;
 
     public static void Init()
     {
         blade = Cms.Get("BladeWeapon");
-
+        bow = Cms.Get("BowWeapon");
+        
         all = new()
         {
-            blade
+            blade,
+            bow
         };
     }
 }
 
 public static class Projectiles
 {
-    public static CmsEntity projectile;
+    public static CmsEntity baseProjectile;
 
     public static List<CmsEntity> all;
     
     public static void Init()
     {
-        projectile = Cms.Get("Projectile");
+        baseProjectile = Cms.Get("BaseProjectile");
         
         all = new()
         {
-            projectile
+            baseProjectile
         };
     }
 }

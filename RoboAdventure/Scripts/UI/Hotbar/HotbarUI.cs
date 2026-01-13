@@ -14,6 +14,7 @@ public class Hotbar : Storage
     public void Init()
     {
         Add(WeaponsContent.blade);
+        Add(WeaponsContent.bow);
     }
     
     public Hotbar(Weapons weapons) : base(5)

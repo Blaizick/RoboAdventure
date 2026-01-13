@@ -52,4 +52,13 @@ public class Enemy : Unit
 {
     [Inject, NonSerialized] public PlayerUnit player;
     [NonSerialized] public Unit target;
+
+    public LayerMask enemyMask;
+
+    public override void Init()
+    {
+        enemyMask = LayerMasks.all.playerMask;
+        
+        base.Init();
+    }
 }

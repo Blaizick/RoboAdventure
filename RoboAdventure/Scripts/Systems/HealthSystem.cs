@@ -67,8 +67,6 @@ public class HealthSystem
             m_Health = m_MaxHealth;
         }
     }
-
-    public class Factory : PlaceholderFactory<CmsEntity, HealthSystem> {}
 }
 
 public class InvincibilitySystem

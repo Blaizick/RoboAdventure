@@ -84,7 +84,7 @@ public class RockClimber : Unit
                     MathUtils.GetLookAtRotation(transform.position, target.transform.position), 
                     m_RotationComp.rotationSpeed * Time.deltaTime);
 
-                if (reloadSystem.TryAttack())
+                if (reloadSystem.TryReset())
                 {
                     Attack();
                     yield return Move();
@@ -104,12 +104,12 @@ public class RockClimber : Unit
 
     public void Attack()
     {
-        var script = projectileFactory.Create();
-        script.cmsEntity = m_ProjectileComp.projectile.GetCmsEntity();
-        script.enemyMask = EnemyMask;
+        var script = projectileFactory.Create(m_ProjectileComp.projectile.GetCmsEntity(), EnemyMask);
+        // script.cmsEntity = m_ProjectileComp.projectile.GetCmsEntity();
+        // script.enemyMask = EnemyMask;
         script.gameObject.transform.position = transform.position;
         script.gameObject.transform.rotation = transform.rotation;
-        script.Init();
+        // script.Init();
     }
 
     public IEnumerator Move()
@@ -186,21 +186,25 @@ public class ReloadSystem
         timeSinceLastAttack += Time.deltaTime;
     }
 
-    public bool CanAttack()
+    public bool IsReloaded()
     {
         return timeSinceLastAttack > reloadTimeComp.reloadTime;
     }
 
-    public void OnAttack()
+    public void Reset()
     {
         timeSinceLastAttack = 0.0f;
     }
 
-    public bool TryAttack()
+    /// <summary>
+    /// Resets only if reloaded
+    /// </summary>
+    /// <returns></returns>
+    public bool TryReset()
     {
-        if (CanAttack())
+        if (IsReloaded())
         {
-            OnAttack();
+            Reset();
             return true;
         }
         return false;

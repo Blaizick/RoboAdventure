@@ -16,7 +16,7 @@ public class Projectile : MonoBehaviour
     
     public void Init()
     {
-        cmsEntity = Projectiles.projectile;
+        cmsEntity = Projectiles.baseProjectile;
         
         m_MoveSpeedComp = cmsEntity.GetComponent<CmsMoveSpeedComp>();
         m_DamageComp = cmsEntity.GetComponent<CmsDamageComp>();
@@ -42,5 +42,23 @@ public class Projectile : MonoBehaviour
         }
     }
     
-    public class Factory : PlaceholderFactory<Projectile> {}
+    public class Factory : PlaceholderFactory<CmsEntity, LayerMask, Projectile> {}
+    public class IFactory : IFactory<CmsEntity, LayerMask, Projectile>
+    {
+        public DiContainer container;
+
+        public IFactory(DiContainer container)
+        {
+            this.container = container;
+        }
+        
+        public Projectile Create(CmsEntity ent, LayerMask enemyMask)
+        {
+            var script = container.InstantiatePrefabForComponent<Projectile>(ent.GetComponent<CmsPrefabComp>().prefab);
+            script.cmsEntity = ent;
+            script.enemyMask = enemyMask;
+            script.Init();
+            return script;
+        }
+    }
 }

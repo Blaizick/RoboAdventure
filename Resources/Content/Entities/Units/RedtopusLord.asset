@@ -17,6 +17,7 @@ MonoBehaviour:
   - rid: 2352840790047457349
   - rid: 2352840790047457352
   - rid: 2352840790047457355
+  - rid: 2352840816411541504
   references:
     version: 2
     RefIds:
@@ -25,10 +26,11 @@ MonoBehaviour:
       data:
         phases:
         - healthThreashold: 0
-          delayBtwAttacks: 1
+          delayBtwAttacks: 5
           attacks:
           - rid: 2352840790047457353
           - rid: 2352840795370815558
+          - rid: 2352840816411541574
     - rid: 2352840790047457352
       type: {class: CmsHealthComp, ns: , asm: Assembly-CSharp}
       data:
@@ -36,9 +38,10 @@ MonoBehaviour:
     - rid: 2352840790047457353
       type: {class: HorizontalDashAttackType, ns: , asm: Assembly-CSharp}
       data:
-        randomness: 30
-        duration: 1
-        length: 10
+        preparationTime: 1
+        preparationDst: 5
+        dashTime: 1
+        dashDst: 10
     - rid: 2352840790047457355
       type: {class: CmsInvincibilityTimeComp, ns: , asm: Assembly-CSharp}
       data:
@@ -46,7 +49,18 @@ MonoBehaviour:
     - rid: 2352840795370815558
       type: {class: DashAttackType, ns: , asm: Assembly-CSharp}
       data:
-        preparationTime: 1
-        preparationDst: 5
-        dashDst: 10
-        dashTime: 1
+        randomness: 30
+        duration: 1
+        length: 5
+    - rid: 2352840816411541504
+      type: {class: CmsDamageComp, ns: , asm: Assembly-CSharp}
+      data:
+        damage: 20
+    - rid: 2352840816411541574
+      type: {class: DashComboAttackType, ns: , asm: Assembly-CSharp}
+      data:
+        dashesCount: 4
+        dashLength: 5
+        dashDuration: 0.75
+        delayBtwDashes: 0.5
+        dashRandomness: 30
